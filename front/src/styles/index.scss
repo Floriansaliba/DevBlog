@@ -1,0 +1,13 @@
+@import 'variables';
+@import 'mixins';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-family: $font-play;
+}

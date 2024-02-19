@@ -1,0 +1,21 @@
+@import 'variables';
+
+//MEDIA QUERIES
+
+@mixin mobile($width: 320px) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin tablet($width: 768px) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin desktop($width: 1024px) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
