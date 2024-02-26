@@ -1,9 +1,15 @@
+import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 
 function App() {
   return (
     <>
-      <Header isAdmin={true} connected={true} />
+      <Routes>
+        <Route
+          path={'/'}
+          element={<Header isAdmin={true} connected={true} />}
+        />
+      </Routes>
     </>
   );
 }
