@@ -1,0 +1,66 @@
+@import '../../styles/index.scss';
+
+#navigation {
+  position: absolute;
+  top: 56px;
+  right: 0;
+  background-color: white;
+  border-bottom-left-radius: 26px;
+  @include desktop {
+    top: 199px;
+    border-bottom-left-radius: 64px;
+  }
+  & > ul {
+    padding-bottom: 12px;
+    padding-top: 12px;
+    @include desktop {
+      padding-bottom: 34px;
+      padding-top: 34px;
+    }
+    & > a {
+      text-decoration: none;
+      & li {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        align-items: center;
+        list-style-type: none;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        padding-left: 14px;
+        padding-right: 14px;
+        border-radius: 8px;
+        margin-left: 10px;
+        @include desktop {
+          font-size: 26px;
+          padding-left: 26px;
+          padding-right: 26px;
+          border-radius: 15px;
+          margin-left: 27px;
+        }
+
+        &:hover {
+          background-color: $color-blue;
+          color: white;
+          & > svg {
+            fill: white;
+          }
+        }
+
+        & > svg {
+          width: 16px;
+          padding-right: 8px;
+          padding-top: 6px;
+          padding-bottom: 6px;
+          @include desktop {
+            width: 31px;
+            padding-right: 27px;
+            padding-top: 9px;
+            padding-bottom: 9px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+@import '../../styles/index.scss';
+
+#menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-links {
+  text-decoration: none;
+  color: black;
+  font-size: 26px;
+  font-weight: bold;
+  padding: 20px 20px;
+  margin: 0px 16px;
+  &:hover {
+    color: white;
+    background-color: $color-blue;
+    border-radius: 47px;
+  }
+}
+
+#burger-menu {
+  width: 25.4px;
+  height: 28px;
+  margin-left: 16px;
+  &:hover {
+    cursor: pointer;
+  }
+  & > path {
+    fill: $color-blue;
+  }
+}

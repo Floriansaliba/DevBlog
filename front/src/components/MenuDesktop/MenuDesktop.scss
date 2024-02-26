@@ -1,0 +1,21 @@
+@import '../../styles/index.scss';
+
+#menu {
+  display: flex;
+  flex-direction: row;
+}
+
+#burger-menu {
+  width: 25.4px;
+  height: 28px;
+  @include desktop {
+    width: 58px;
+    height: 67px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  & > path {
+    fill: $color-blue;
+  }
+}

@@ -1,5 +1,5 @@
-@import 'variables';
-@import 'mixins';
+@import 'variables.scss';
+@import 'mixins.scss';
 
 * {
   margin: 0;
@@ -10,4 +10,8 @@ body {
   padding-left: 15px;
   padding-right: 15px;
   font-family: $font-play;
+  @include desktop {
+    padding-left: 33px;
+    padding-right: 33px;
+  }
 }
