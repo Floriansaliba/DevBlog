@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import Navigation from '../Navigation/Navigation';
 import './MenuMobile.scss';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../store/Selectors/userSelectors';
 
-const MenuMobile = (connected, isAdmin) => {
+const MenuMobile = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const user = useSelector(selectUser);
+  const { connected, isAdmin } = user;
   /**
    * This function toggles the menu open and closed.
    */

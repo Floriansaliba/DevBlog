@@ -5,11 +5,20 @@ import logo from './../../assets/images/logo.png';
 import { useEffect, useState } from 'react';
 import MenuMobile from '../MenuMobile/MenuMobile';
 import MenuDesktop from '../MenuDesktop/MenuDesktop';
+import { selectUser } from '../../store/Selectors/userSelectors';
+import { useSelector } from 'react-redux';
 
-const Header = ({ connected, isAdmin }) => {
+const Header = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const user = useSelector(selectUser);
+  const { connected, isAdmin } = user;
+  console.log(connected, isAdmin);
 
   useEffect(() => {
+    /**
+     * Une fonction qui gère l'événement de redimensionnement et met à jour le state avec la largeur de l'écran.
+     *
+     */
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
@@ -28,11 +37,7 @@ const Header = ({ connected, isAdmin }) => {
         src={screenWidth >= 1024 ? logo : logoMobile}
         alt='Logo de DevBlog'
       />
-      {screenWidth < 1024 ? (
-        <MenuMobile connected={connected} isAdmin={isAdmin} />
-      ) : (
-        <MenuDesktop connected={connected} isAdmin={isAdmin} />
-      )}
+      {screenWidth < 1024 ? <MenuMobile /> : <MenuDesktop />}
     </header>
   );
 };

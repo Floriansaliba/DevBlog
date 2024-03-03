@@ -32,3 +32,24 @@
     fill: $color-blue;
   }
 }
+
+.miniature-info {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  & > svg {
+    width: 20px;
+    padding-right: 10px;
+    & > path {
+      fill: white;
+    }
+  }
+  & > span {
+    font-weight: bold;
+  }
+}
+
+.miniature-actions {
+  display: flex;
+  flex-direction: column;
+}

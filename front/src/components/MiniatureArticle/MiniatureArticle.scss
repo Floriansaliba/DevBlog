@@ -1,0 +1,149 @@
+@import '../../styles/index.scss';
+
+.miniature-article {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: $color-blue;
+  width: 291px;
+  border-radius: 8px;
+  color: white;
+  padding: 8px;
+  @include desktop {
+    padding: 14px;
+    width: 550px;
+  }
+  & img {
+    width: 82px;
+    height: 77px;
+    @include desktop {
+      width: 141px;
+      height: 141px;
+    }
+  }
+  & h2 {
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 1px;
+    padding-left: 16px;
+    height: 77px;
+    width: 175px;
+    overflow: hidden;
+    @include desktop {
+      font-size: 27px;
+      padding-left: 42px;
+      height: 141px;
+      width: 339px;
+      line-height: 42px;
+    }
+  }
+  &--admin {
+    background-color: $color-blue;
+    width: 281px;
+    padding: 9px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+  }
+}
+
+.image-and-title {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  border-radius: 8px;
+  & > img {
+    width: 82px;
+    height: 77px;
+    @include desktop {
+      width: 141px;
+      height: 141px;
+    }
+  }
+  & h2 {
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 1px;
+    padding-left: 16px;
+    height: 77px;
+    width: 175px;
+    overflow: hidden;
+    @include desktop {
+      font-size: 27px;
+      padding-left: 42px;
+      height: 141px;
+      width: 339px;
+      line-height: 42px;
+    }
+  }
+}
+
+.miniature-infos {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.admin-bloc {
+  margin-top: 8px;
+  height: 52px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.miniature-actions {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.miniature-action-modify {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-orange;
+  border: none;
+  border-radius: 17px;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 16px;
+  height: 23px;
+  padding: 0px 20px;
+  line-height: 18px;
+  margin-right: 27px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.miniature-action-delete {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-red;
+  border: none;
+  border-radius: 17px;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 16px;
+  height: 23px;
+  padding: 0px 20px;
+  line-height: 18px;
+  margin-right: 27px;
+}
+
+.like-number {
+  letter-spacing: 1px;
+}
+
+.view-number {
+  letter-spacing: 1px;
+}

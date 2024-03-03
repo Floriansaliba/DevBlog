@@ -2,9 +2,14 @@
 import { useState, useEffect } from 'react';
 import './Navigation.scss';
 import { navigationElements } from '../../utils/navigationElements';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../store/Selectors/userSelectors';
 
-const Navigation = ({ connected, isAdmin, menuOpen }) => {
+const Navigation = ({ menuOpen }) => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const user = useSelector(selectUser);
+  const { connected, isAdmin } = user;
 
   useEffect(() => {
     const handleResize = () => {

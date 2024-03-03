@@ -1,0 +1,27 @@
+@import '../../styles/index.scss';
+
+#filter-articles {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 45px;
+  & > span {
+    font-weight: bold;
+    font-size: 27px;
+    margin-bottom: 23px;
+  }
+  & button {
+    background-color: $color-blue;
+    border: none;
+    color: white;
+    border-radius: 17px;
+    height: 45px;
+    font-weight: bold;
+    font-size: 20.8px;
+    letter-spacing: 1px;
+    font-family: $font-play;
+    margin-bottom: 8px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

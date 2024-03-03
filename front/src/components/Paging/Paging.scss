@@ -1,0 +1,27 @@
+@import '../../styles/index.scss';
+
+#paging {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  height: 31px;
+  margin-top: 16px;
+}
+
+.pages-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  & > li {
+    list-style-type: none;
+    padding: 0px 10px;
+    font-size: 16px;
+    font-weight: normal;
+  }
+}
