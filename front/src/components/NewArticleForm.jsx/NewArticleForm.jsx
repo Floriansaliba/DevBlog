@@ -17,8 +17,8 @@ const NewArticleForm = () => {
 
   const [editorBlocsDisplay, setEditorBlocs] = useState({
     subtitle: true,
-    paragraph: true,
-    code: true,
+    paragraph: false,
+    code: false,
   });
   const [contents, setContents] = useState({
     subtitle: { id: uuidv4(), type: 'subtitle', content: '' },
@@ -52,6 +52,35 @@ const NewArticleForm = () => {
     }
   };
 
+  const handleBlocsDisplay = (e, type) => {
+    e.preventDefault();
+    switch (type) {
+      case 'subtitle':
+        setEditorBlocs({
+          subtitle: true,
+          paragraph: false,
+          code: false,
+        });
+        break;
+      case 'paragraph':
+        setEditorBlocs({
+          subtitle: false,
+          paragraph: true,
+          code: false,
+        });
+        break;
+      case 'code':
+        setEditorBlocs({
+          subtitle: false,
+          paragraph: false,
+          code: true,
+        });
+        break;
+      default:
+        console.error('Error : executing action');
+    }
+  };
+
   return (
     <>
       <form className='article-form' action='post'>
@@ -81,9 +110,36 @@ const NewArticleForm = () => {
             />
           )}
           <section id='action-buttons'>
-            <button>AJOUTER SOUS-TITRE</button>
-            <button>AJOUTER PARAGRAPHE</button>
-            <button>AJOUTER CODE</button>
+            <button
+              className={
+                editorBlocsDisplay.subtitle
+                  ? 'article-form__button--active'
+                  : 'article-form__button'
+              }
+              onClick={(e) => handleBlocsDisplay(e, 'subtitle')}
+            >
+              AJOUTER SOUS-TITRE
+            </button>
+            <button
+              className={
+                editorBlocsDisplay.paragraph
+                  ? 'article-form__button--active'
+                  : 'article-form__button'
+              }
+              onClick={(e) => handleBlocsDisplay(e, 'paragraph')}
+            >
+              AJOUTER PARAGRAPHE
+            </button>
+            <button
+              className={
+                editorBlocsDisplay.code
+                  ? 'article-form__button--active'
+                  : 'article-form__button'
+              }
+              onClick={(e) => handleBlocsDisplay(e, 'code')}
+            >
+              AJOUTER CODE
+            </button>
           </section>
           <div
             className='editor-bloc'
@@ -92,6 +148,7 @@ const NewArticleForm = () => {
             {' '}
             <h2 className='article-form__title'>PARAGRAPHE</h2>
             <textarea
+              id='input-paragraph'
               onChange={(e) =>
                 setContents({
                   ...contents,
@@ -106,6 +163,7 @@ const NewArticleForm = () => {
             ></textarea>
             <br />
             <button
+              className='article-form__button'
               id='new-paragraph'
               onClick={(e) => {
                 e.preventDefault();
@@ -122,6 +180,7 @@ const NewArticleForm = () => {
             {' '}
             <h2 className='article-form__title'>SOUS-TITRE</h2>
             <input
+              id='input-subtitle'
               onChange={(e) =>
                 setContents({
                   ...contents,
@@ -134,6 +193,7 @@ const NewArticleForm = () => {
             />
             <br />
             <button
+              className='article-form__button'
               onClick={(e) => {
                 e.preventDefault();
                 dispatch(addElement(contents.subtitle));
@@ -149,6 +209,7 @@ const NewArticleForm = () => {
             {' '}
             <h2 className='article-form__title'>CODE</h2>
             <textarea
+              id='input-code'
               onChange={(e) =>
                 setContents({
                   ...contents,
@@ -162,6 +223,7 @@ const NewArticleForm = () => {
             ></textarea>
             <br />
             <button
+              className='article-form__button'
               onClick={(e) => {
                 e.preventDefault();
                 dispatch(addElement(contents.code));
@@ -172,14 +234,18 @@ const NewArticleForm = () => {
           </div>
         </div>
         <ArticleView />
-        <input
-          type='submit'
-          value={'Publier'}
-          onClick={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-        />
+        <div id='publish-bloc'>
+          {' '}
+          <input
+            id='publish-button'
+            type='submit'
+            value={'Publier'}
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          />
+        </div>
       </form>
     </>
   );

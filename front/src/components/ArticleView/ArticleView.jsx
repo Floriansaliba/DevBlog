@@ -21,7 +21,7 @@ const ArticleView = () => {
         );
       case 'code':
         return (
-          <pre id={element.id}>
+          <pre id={element.id} key={index}>
             <code>{element.content}</code>
           </pre>
         );

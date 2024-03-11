@@ -21,21 +21,125 @@
     letter-spacing: 1px;
     color: $color-blue;
     text-transform: uppercase;
+    margin-bottom: 16px;
   }
   &__title-input {
     height: 64px;
     border-radius: 17px;
     border: none;
-    &:hover {
-      border: none;
-    }
+    width: 90%;
+    font-size: 45px;
+    border: solid 3px $color-blue;
+    font-family: $font-play;
+    font-weight: bold;
+    margin-bottom: 111px;
     &:focus {
-      border: none;
+      border: solid 3px $color-green;
       outline: none;
     }
   }
-  &__button + label {
+  &__button {
     background-color: $color-blue;
+    font-size: 20.8px;
+    letter-spacing: 1px;
+    font-weight: bold;
     color: white;
+    padding: 8px 20px;
+    border-radius: 17px;
+    border: none;
+    margin-right: 49px;
+    &--active {
+      background-color: $color-green;
+      font-size: 20.8px;
+      letter-spacing: 1px;
+      font-weight: bold;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 17px;
+      border: none;
+      margin-right: 49px;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: $color-green;
+    }
+  }
+}
+
+#action-buttons {
+  margin-top: 135px;
+  margin-bottom: 89px;
+}
+
+#input-subtitle {
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  width: 90%;
+  font-size: 22px;
+  border: solid 3px $color-blue;
+  font-family: $font-play;
+  font-weight: bold;
+  margin-bottom: 51px;
+  &:focus {
+    border: solid 3px $color-green;
+    outline: none;
+  }
+}
+
+#input-paragraph {
+  height: 353px;
+  border-radius: 8px;
+  border: none;
+  width: 90%;
+  font-size: 22px;
+  border: solid 3px $color-blue;
+  font-family: $font-play;
+  font-weight: bold;
+  margin-bottom: 51px;
+  &:focus {
+    border: solid 3px $color-green;
+    outline: none;
+  }
+}
+
+#input-code {
+  height: 353px;
+  border-radius: 8px;
+  border: none;
+  width: 90%;
+  font-size: 22px;
+  border: solid 3px $color-blue;
+  font-family: $font-play;
+  font-weight: bold;
+  margin-bottom: 51px;
+  &:focus {
+    border: solid 3px $color-green;
+    outline: none;
+  }
+}
+
+#publish-bloc {
+  margin-top: 110px;
+  margin-bottom: 75px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#publish-button {
+  background-color: $color-green;
+  font-size: 20.8px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: white;
+  padding: 31px 99px;
+  border-radius: 17px;
+  border: none;
+  margin: auto;
+  &:hover {
+    cursor: pointer;
   }
 }
