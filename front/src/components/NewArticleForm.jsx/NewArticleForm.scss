@@ -1,0 +1,41 @@
+@import '../../styles/index.scss';
+
+#editor-bloc {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(11, 160, 178, 1) 100%
+  );
+  padding-top: 134px;
+  padding-left: 78px;
+  padding-bottom: 81px;
+}
+
+.article-form {
+  width: 100%;
+  &__title {
+    font-size: 33px;
+    font-weight: bold;
+    line-height: 41px;
+    letter-spacing: 1px;
+    color: $color-blue;
+    text-transform: uppercase;
+  }
+  &__title-input {
+    height: 64px;
+    border-radius: 17px;
+    border: none;
+    &:hover {
+      border: none;
+    }
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+  &__button + label {
+    background-color: $color-blue;
+    color: white;
+  }
+}

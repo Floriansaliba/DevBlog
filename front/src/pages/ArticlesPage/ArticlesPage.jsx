@@ -7,6 +7,18 @@ const ArticlesPage = () => {
     <>
       <SortArticles />
       <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
+      <MiniatureArticle />
       <Paging />
     </>
   );
