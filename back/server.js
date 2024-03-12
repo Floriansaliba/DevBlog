@@ -4,18 +4,22 @@ const cors = require('cors');
 const routes = require('./app/routes');
 const mongoose = require('mongoose');
 const port = 3000;
+const path = require('path');
 
 //--------------------------------------------------------------------
 //     Utiliser CORS pour toutes les routes
 //--------------------------------------------------------------------
-
 app.use(cors());
 
 //--------------------------------------------------------------------
 //     Récupérer les requêtes au format JSON
 //--------------------------------------------------------------------
-
 app.use(express.json({ limit: '50mb' }));
+
+//--------------------------------------------------------------------
+//      Création d'un répertoire static pour les images
+//--------------------------------------------------------------------
+app.use(express.static(path.join(__dirname, 'public')));
 
 //--------------------------------------------------------------------
 //      Connection à Mongodb
