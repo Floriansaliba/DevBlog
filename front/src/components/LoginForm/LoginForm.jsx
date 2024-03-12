@@ -1,6 +1,10 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { connectUser } from '../../store/slices/UserSlice';
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -14,9 +18,20 @@ const LoginForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    axios
+      .post('http://localhost:3000/login', formData)
+      .then((res) => {
+        if (res.status === 200) {
+          // On passe le user à logged in dans Redux
+          dispatch(connectUser());
+        }
+        console.log(res.status);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <>
@@ -36,7 +51,7 @@ const LoginForm = () => {
           value={formData.password}
           onChange={handleChange}
         />
-        <button className='btn' type='submit'>
+        <button className='btn' type='submit' onClick={handleSubmit}>
           SE CONNECTER
         </button>
       </form>

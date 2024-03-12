@@ -21,7 +21,6 @@ const SubscribeForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://localhost:3000/subscribe', formData);
-    console.log(formData);
   };
 
   return (

@@ -9,8 +9,11 @@ const UserSlice = createSlice({
     connectUser(state) {
       state.user.connected = true;
     },
+    disconnectUser(state) {
+      state.user.connected = false;
+    },
   },
 });
 
-export const { connectUser } = UserSlice.actions;
+export const { connectUser, disconnectUser } = UserSlice.actions;
 export default UserSlice;
