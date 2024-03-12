@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './SubscribeForm.scss';
+import axios from 'axios';
 
 const SubscribeForm = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const SubscribeForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios.post('http://localhost:3000/subscribe', formData);
     console.log(formData);
   };
 
