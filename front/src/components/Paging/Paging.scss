@@ -25,3 +25,11 @@
     font-weight: normal;
   }
 }
+
+.page-number {
+  cursor: pointer;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}

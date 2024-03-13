@@ -7,6 +7,7 @@ import ArticlesPage from './pages/ArticlesPage/ArticlesPage';
 import DashboardPage from './pages/DashboardPage/DashboardPage';
 import Page404 from './pages/Page404/Page404';
 import NewArticleForm from './components/NewArticleForm.jsx/NewArticleForm';
+import SingleArticlePage from './pages/SingleArticlePage/SingleArticlePage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path={'/inscription'} element={<SubscribePage />} />
         <Route path={'/connexion'} element={<LoginPage />} />
         <Route path={'/articles'} element={<ArticlesPage />} />
+        <Route path={'/articles/:id'} element={<SingleArticlePage />} />
         <Route path={'/dashboard'} element={<DashboardPage />} />
         <Route path={'/nouvel-article'} element={<NewArticleForm />} />
         <Route path={'/*'} element={<Page404 />} />

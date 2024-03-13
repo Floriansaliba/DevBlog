@@ -5,10 +5,15 @@
   flex-direction: row;
   align-items: flex-start;
   background-color: $color-blue;
-  width: 291px;
+  width: 100%;
   border-radius: 8px;
   color: white;
   padding: 8px;
+  margin-bottom: 25px;
+  max-width: 380px;
+  &:hover {
+    cursor: pointer;
+  }
   @include desktop {
     padding: 14px;
     width: 550px;
@@ -27,7 +32,7 @@
     letter-spacing: 1px;
     padding-left: 16px;
     height: 77px;
-    width: 175px;
+    width: 100%;
     overflow: hidden;
     @include desktop {
       font-size: 27px;
@@ -39,7 +44,7 @@
   }
   &--admin {
     background-color: $color-blue;
-    width: 281px;
+    width: 100%;
     padding: 9px;
     display: flex;
     flex-direction: column;
@@ -66,8 +71,9 @@
     letter-spacing: 1px;
     padding-left: 16px;
     height: 77px;
-    width: 175px;
+    width: 100%;
     overflow: hidden;
+
     @include desktop {
       font-size: 27px;
       padding-left: 42px;
@@ -146,4 +152,12 @@
 
 .view-number {
   letter-spacing: 1px;
+}
+
+.title-frame {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }

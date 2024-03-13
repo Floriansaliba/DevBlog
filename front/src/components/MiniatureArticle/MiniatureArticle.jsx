@@ -3,21 +3,32 @@ import './MiniatureArticle.scss';
 import defaultImage from './../../assets/images/default_image.png';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/Selectors/userSelectors';
+import { useNavigate } from 'react-router-dom';
 
-const MiniatureArticle = ({ title, imageName, likes, views, id }) => {
+const MiniatureArticle = ({ article }) => {
+  const navigate = useNavigate();
   const isAdmin = useSelector(selectUser).isAdmin;
+
+  const { title, imageName, likes, views, _id } = article;
+
+  const handleClick = () => {
+    navigate(`/articles/${_id}`);
+  };
+
   return !isAdmin ? (
-    <div className='miniature-article' id={id}>
+    <div className='miniature-article' id={_id} onClick={handleClick}>
       <img
         src={
           imageName ? `http://localhost:3000/images/${imageName}` : defaultImage
         }
         alt={title}
       />
-      <h2>{title}</h2>
+      <div className='title-frame'>
+        <h2>{title}</h2>
+      </div>
     </div>
   ) : (
-    <div className='miniature-article--admin' id={id}>
+    <div className='miniature-article--admin' id={_id} onClick={handleClick}>
       <div className='image-and-title'>
         <img
           src={
@@ -27,7 +38,9 @@ const MiniatureArticle = ({ title, imageName, likes, views, id }) => {
           }
           alt={title}
         />
-        <h2>{title}</h2>
+        <div className='title-frame'>
+          <h2>{title}</h2>
+        </div>
       </div>
       <div className='admin-bloc'>
         <div className='miniature-infos'>

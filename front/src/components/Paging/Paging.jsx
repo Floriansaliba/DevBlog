@@ -1,13 +1,13 @@
 import './Paging.scss';
-const Paging = () => {
+const Paging = ({ totalOfPages }) => {
   return (
     <div id='paging'>
       <ul className='pages-list'>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
+        {Array.from({ length: totalOfPages }).map((_, i) => (
+          <li className='page-number' key={i}>
+            {i + 1}
+          </li>
+        ))}
       </ul>
     </div>
   );

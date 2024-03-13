@@ -1,5 +1,6 @@
 const NewUser = require('../repositories/NewUser');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 class User {
   subscribe = async (req, res) => {
     try {
@@ -28,17 +29,25 @@ class User {
     try {
       const user = await NewUser.findOne({ email: email });
       if (!user) {
-        console.error('Aucun utilisateur trouvé avec cet email');
-        return res.redirect('/login');
+        return res.status(401).send('Utilisateur non reconnu');
       }
       const match = await bcrypt.compare(password, user.password);
       if (match) {
-        console.log(user.firstName, user.lastName, user.email);
+        const token = jwt.sign(
+          {
+            email: user.email,
+            role: user.role,
+          },
+          process.env.JWT_SECRET
+        );
+        res
+          .status(200)
+          .send({ message: 'Connexion réussie', token: token, user: user });
+        console.log('logged');
       }
-      res.status(200).send('User successfully logged in');
     } catch (error) {
       console.error(error);
-      res.status(500).send('An error occurred while logging the user');
+      res.status(500).send('Une erreur interne est survenue');
     }
   };
 }

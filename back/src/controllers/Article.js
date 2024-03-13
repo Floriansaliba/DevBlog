@@ -9,11 +9,11 @@ class Article {
       console.log(article);
 
       const base64Image = article.image.replace(
-        /^data:image\/(png|jpeg);base64,/,
+        /^data:image\/(png|jpeg|webp);base64,/,
         ''
       );
 
-      const filename = `image-${Date.now()}.png`;
+      const filename = `image-${Date.now()}.webp`;
       console.log(__dirname);
       const imagePath = path.join(__dirname, '../../public/images', filename);
 

@@ -1,41 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import './ArticlesPage.scss';
 import SortArticles from '../../components/FilterArticles/SortArticles';
 import MiniatureArticle from '../../components/MiniatureArticle/MiniatureArticle';
 import Paging from '../../components/Paging/Paging';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchArticles } from '../../store/slices/ArticlesSlice';
+import { selectArticles } from '../../store/Selectors/articlesSelector';
 
 const ArticlesPage = () => {
-  const [articles, setArticles] = useState([]);
+  const dispatch = useDispatch();
+  const articles = useSelector(selectArticles);
+
+  const numberOfArticlesPerPage = 14;
+  const totalArticles = articles.length;
+  const totalOfPages = Math.ceil(totalArticles / numberOfArticlesPerPage);
+  console.log(totalOfPages);
+
   useEffect(() => {
-    axios
-      .get('http://localhost:3000/articles')
-      .then((response) => {
-        const fetchedArticles = response.data.articles;
-        console.log(fetchedArticles);
-        setArticles(fetchedArticles);
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la requête:', error);
-      });
+    dispatch(fetchArticles());
   }, []);
+
   return (
     <>
       <SortArticles />
-      {articles.length > 0 &&
-        articles.map((article, index) => {
-          console.log(article.imageName);
-          return (
-            <MiniatureArticle
-              key={index}
-              title={article.title}
-              imageName={article.imageName}
-              likes={article.likes}
-              views={article.views}
-              id={article.id}
-            />
-          );
-        })}
-      <Paging />
+      <section id='articles'>
+        {articles.length > 0 &&
+          articles.map((article) => {
+            console.log(article.imageName);
+            return <MiniatureArticle key={article._id} article={article} />;
+          })}
+      </section>
+      <Paging totalOfPages={totalOfPages} />
     </>
   );
 };

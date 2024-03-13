@@ -25,9 +25,12 @@ const LoginForm = () => {
       .then((res) => {
         if (res.status === 200) {
           // On passe le user à logged in dans Redux
+          const token = res.data.token;
+          localStorage.setItem('token', token);
+          console.log(res.data.user);
           dispatch(connectUser());
         }
-        console.log(res.status);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
