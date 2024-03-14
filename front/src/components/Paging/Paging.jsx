@@ -1,4 +1,5 @@
 import './Paging.scss';
+// eslint-disable-next-line react/prop-types
 const Paging = ({ totalOfPages }) => {
   return (
     <div id='paging'>

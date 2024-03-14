@@ -1,9 +1,20 @@
 import { useSelector } from 'react-redux';
 import { selectNewArticle } from '../../store/Selectors/newArticleSelector';
 import './ArticleView.scss';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/default.css';
+import { useEffect } from 'react';
 
 const ArticleView = () => {
   const article = useSelector(selectNewArticle);
+
+  useEffect(() => {
+    const highlightCode = () => {
+      const nodes = document.querySelectorAll('pre code');
+      nodes.forEach((node) => hljs.highlightBlock(node));
+    };
+    highlightCode();
+  });
 
   const renderArticleElement = (element, index) => {
     switch (element.type) {
