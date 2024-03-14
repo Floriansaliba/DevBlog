@@ -4,9 +4,15 @@ import './ArticleView.scss';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/default.css';
 import { useEffect } from 'react';
+import { selectArticles } from '../../store/Selectors/articlesSelector';
+import { ArticleActionBar } from '../ArticleActionBar/ArticleActionBar';
 
-const ArticleView = () => {
-  const article = useSelector(selectNewArticle);
+const ArticleView = ({ id }) => {
+  const articles = useSelector(selectArticles);
+  const selectedArticle = articles.find((article) => article._id === id);
+  console.log(articles, selectedArticle);
+
+  const newArticle = useSelector(selectNewArticle);
 
   useEffect(() => {
     const highlightCode = () => {
@@ -43,16 +49,27 @@ const ArticleView = () => {
   return (
     <>
       <article className='article'>
-        <h1 className='article__title'>{article.title}</h1>
+        <h1 className='article__title'>
+          {id ? selectedArticle.title : newArticle.title}
+        </h1>
         <img
           className='article__image'
-          src={article.image}
-          alt={article.title}
+          src={
+            id
+              ? `http://localhost:3000/images/${selectedArticle.imageName}`
+              : newArticle.image
+          }
+          alt={id ? selectedArticle.title : newArticle.title}
         />
-        {article.elements.map((element, index) =>
-          renderArticleElement(element, index)
-        )}
+        {id
+          ? selectedArticle.content.map((element, index) =>
+              renderArticleElement(element, index)
+            )
+          : newArticle.elements.map((element, index) =>
+              renderArticleElement(element, index)
+            )}
       </article>
+      {id && <ArticleActionBar id={id} />}
     </>
   );
 };

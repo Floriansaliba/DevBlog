@@ -1,0 +1,25 @@
+@import '../../styles/index.scss';
+
+#action-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookmark {
+  width: 56px;
+  cursor: pointer;
+  & > path {
+    fill: $color-blue;
+  }
+}
+
+.heart {
+  width: 78px;
+  cursor: pointer;
+  & > path {
+    fill: $color-blue;
+  }
+}

@@ -24,11 +24,14 @@ const LoginForm = () => {
       .post('http://localhost:3000/login', formData)
       .then((res) => {
         if (res.status === 200) {
-          // On passe le user à logged in dans Redux
+          // On enregistre le jwt token dans le localStorage
           const token = res.data.token;
           localStorage.setItem('token', token);
+          // On déclenche l'action connectUser de Redux afin de connecter le user, de vérifier si il est admin ou non, et d'enregistrer ses informations
+          dispatch(connectUser(res.data.user));
+          // On vérifie si le user est admin ou non afin de mettre à jour la variable isAdmin de Redux
+          // On enregistrer
           console.log(res.data.user);
-          dispatch(connectUser());
         }
         console.log(res);
       })
