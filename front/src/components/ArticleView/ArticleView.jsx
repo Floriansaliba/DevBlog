@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { selectArticles } from '../../store/Selectors/articlesSelector';
 import { ArticleActionBar } from '../ArticleActionBar/ArticleActionBar';
 
+// eslint-disable-next-line react/prop-types
 const ArticleView = ({ id }) => {
   const articles = useSelector(selectArticles);
   const selectedArticle = articles.find((article) => article._id === id);

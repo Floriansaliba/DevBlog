@@ -24,8 +24,28 @@ const ArticlesSlice = createSlice({
   name: 'articles',
   initialState,
   reducers: {
-    getArticles(state) {
-      state.articles = [];
+    sortByNewest(state) {
+      const articles = state.articles;
+      if (articles.length > 0) {
+        const sortedArticles = articles.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+        state.articles = sortedArticles;
+      }
+    },
+    sortByMostSeen(state) {
+      const articles = state.articles;
+      if (articles.length > 0) {
+        const sortedArticles = articles.sort((a, b) => b.views - a.views);
+        state.articles = sortedArticles;
+      }
+    },
+    sortByMostLiked(state) {
+      const articles = state.articles;
+      if (articles.length > 0) {
+        const sortedArticles = articles.sort((a, b) => b.likes - a.likes);
+        state.articles = sortedArticles;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -45,5 +65,6 @@ const ArticlesSlice = createSlice({
   },
 });
 
-export const { getArticles } = ArticlesSlice.actions;
+export const { getArticles, sortByNewest, sortByMostSeen, sortByMostLiked } =
+  ArticlesSlice.actions;
 export default ArticlesSlice;

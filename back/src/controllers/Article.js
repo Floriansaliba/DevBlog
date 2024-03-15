@@ -24,7 +24,7 @@ class Article {
       const newArticle = new NewArticle();
       newArticle.title = article.title;
       newArticle.imageName = filename;
-      newArticle.date = Date.now();
+      newArticle.date = new Date();
       newArticle.content = article.elements;
       newArticle.likes = 0;
       newArticle.views = 0;
@@ -44,6 +44,38 @@ class Article {
     } catch (error) {
       console.error(error);
       res.status(500).send('An error occurred while getting the articles');
+    }
+  }
+
+  async addView(req, res) {
+    try {
+      const { articleId } = req.params;
+      const article = await NewArticle.findById(articleId);
+      if (!article) {
+        return res.status(404).send('Article non trouvé');
+      }
+      article.views++;
+      await article.save();
+      res.status(200).send('Une vue ajoutée');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Une erreur est survenue lors de l'ajout de la vue`);
+    }
+  }
+
+  async addLike(req, res) {
+    try {
+      const { articleId } = req.params;
+      const article = await NewArticle.findById(articleId);
+      if (!article) {
+        return res.status(404).send('Article non trouvé');
+      }
+      article.likes++;
+      await article.save();
+      res.status(200).send('Un like ajouté');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Une erreur est survenue lors de l'ajout du like`);
     }
   }
 }
