@@ -10,6 +10,7 @@ const routes = (app) => {
   app.post('/login', new User().login);
   app.post('/checkAuth', new User().checkAuth);
   app.post('/saveArticle', new User().saveArticle);
+  app.put('/user/update', new User().updateUser);
 };
 
 module.exports = routes;

@@ -2,9 +2,12 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { connectUser } from '../../store/slices/UserSlice';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -32,11 +35,24 @@ const LoginForm = () => {
           // On vérifie si le user est admin ou non afin de mettre à jour la variable isAdmin de Redux
           // On enregistrer
           console.log(res.data.user);
+          toast.success('Connexion réussie');
+          navigate('/');
         }
         console.log(res);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.errors
+        ) {
+          error.response.data.errors.forEach((errorMessage) => {
+            toast.error(errorMessage);
+          });
+        } else {
+          toast.error('Une erreur est survenue lors de la connexion.');
+        }
+        console.log(error);
       });
   };
   return (

@@ -27,12 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //--------------------------------------------------------------------
 //      Connection à Mongodb
 //--------------------------------------------------------------------
-
-const uri =
-  'mongodb+srv://Flo:16111988@cluster0.0rxry7j.mongodb.net/?retryWrites=true&w=majority';
-
 mongoose
-  .connect(uri)
+  .connect(process.env.MONGO_URI)
   .then(() => console.log('Connecté à la DB!'))
   .catch((err) => console.error(err));
 

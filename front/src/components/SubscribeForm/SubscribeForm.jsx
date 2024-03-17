@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import './SubscribeForm.scss';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const SubscribeForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,9 +21,24 @@ const SubscribeForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/subscribe', formData);
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/subscribe',
+        formData
+      );
+      toast.success('Vous êtes inscrit :)');
+      navigate('/');
+    } catch (error) {
+      if (error.response && error.response.data.errors) {
+        error.response.data.errors.forEach((err) => {
+          toast.error(err);
+        });
+      } else {
+        toast.error('Une erreur est survenue');
+      }
+    }
   };
 
   return (

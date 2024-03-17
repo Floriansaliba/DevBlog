@@ -9,15 +9,32 @@ import Page404 from './pages/Page404/Page404';
 import NewArticleForm from './components/NewArticleForm.jsx/NewArticleForm';
 import SingleArticlePage from './pages/SingleArticlePage/SingleArticlePage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 function App() {
   return (
     <>
       <Header isAdmin={false} connected={false} />
+      <ToastContainer
+        position='bottom-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+        transition:Bounce
+      />
       <Routes>
         <Route path={'/'} element={<HomePage />} />
         <Route path={'/inscription'} element={<SubscribePage />} />
         <Route path={'/connexion'} element={<LoginPage />} />
+        <Route path={'/profile'} element={<ProfilePage />} />
         <Route path={'/articles'} element={<ArticlesPage />} />
         <Route path={'/articles/:id'} element={<SingleArticlePage />} />
         <Route
