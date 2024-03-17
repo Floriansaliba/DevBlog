@@ -12,11 +12,15 @@ const ProfilePage = () => {
     lastName: user.lastName,
     email: user.email,
   });
+  const [password, setPassword] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    setModifiedUser({ ...modifiedUser, [name]: value });
+    if (name === 'password') {
+      setPassword(value);
+    } else {
+      setModifiedUser({ ...modifiedUser, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -43,6 +47,12 @@ const ProfilePage = () => {
       toast.error("L'email n'est pas valide.");
       hasErrors = true;
     }
+    if (!password.trim()) {
+      toast.error(
+        'Veuillez entrer votre mot de passe pour confirmer les changements.'
+      );
+      hasErrors = true;
+    }
     // Arrêt si des erreurs son détéctées
     if (hasErrors) return;
 
@@ -51,11 +61,13 @@ const ProfilePage = () => {
       const response = await axios.put('http://localhost:3000/user/update', {
         ...modifiedUser,
         currentEmail: user.email,
+        password,
       });
 
       const successMessage =
         response.data.message || 'Profil mis à jour avec succès';
       toast.success(successMessage);
+      setPassword('');
     } catch (error) {
       if (error.response) {
         // Affichage des erreurs
@@ -123,6 +135,16 @@ const ProfilePage = () => {
             name='email'
             placeholder={user.email}
             onChange={handleChange}
+          />
+        </label>
+        <label>
+          Mot de passe (pour confirmer les changements) :
+          <input
+            type='password'
+            name='password'
+            placeholder='Entrez votre mot de passe'
+            onChange={handleChange}
+            value={password}
           />
         </label>
         <button type='submit'>Mettre à jour</button>

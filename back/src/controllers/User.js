@@ -186,7 +186,7 @@ class User {
 
   updateUser = async (req, res) => {
     try {
-      const { currentEmail, firstName, lastName, email } = req.body;
+      const { currentEmail, firstName, lastName, email, password } = req.body;
 
       // Début de la validation des données
       const errors = [];
@@ -206,6 +206,12 @@ class User {
 
       if (lastName && (lastName.length < 2 || lastName.length > 20)) {
         errors.push('Le nom doit être compris entre 2 et 20 caractères.');
+      }
+
+      if (!password) {
+        errors.push(
+          'Le mot de passe est requis pour confirmer les changements.'
+        );
       }
       // Vérifier si le nouvel email est déjà utilisé par un autre utilisateur
       if (email) {
@@ -232,6 +238,11 @@ class User {
       });
       if (!user) {
         return res.status(404).send('Utilisateur non trouvé avec cet email.');
+      }
+      // Vérification du mot de passe
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).send('Mot de passe incorrect.');
       }
 
       // Mise à jour de l'utilisateur avec les nouvelles données
