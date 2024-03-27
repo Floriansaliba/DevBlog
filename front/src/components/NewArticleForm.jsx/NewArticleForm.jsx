@@ -4,16 +4,29 @@ import axios from 'axios';
 import './NewArticleForm.scss';
 import {
   addTitle,
-  addElement,
   addImage,
+  copyArticleToModifyAsNewArticle,
 } from '../../store/slices/NewArticleSlice';
 import ArticleView from '../ArticleView/ArticleView';
 import { v4 as uuidv4 } from 'uuid';
-import { selectNewArticle } from '../../store/Selectors/newArticleSelector';
+import {
+  selectArticleToModify,
+  selectNewArticle,
+} from '../../store/Selectors/newArticleSelector';
+import ParagraphCreator from '../ParagraphCreator/ParagraphCreator';
+import SubtitleCreator from '../SubtitleCreator/SubtitleCreator';
+import CodeCreator from '../CodeCreator/CodeCreator';
+
+// Formulaire permettant de créer un nouvel article, ou de modifier un article existant
 
 const NewArticleForm = () => {
-  const article = useSelector(selectNewArticle);
   const dispatch = useDispatch();
+  const articleToModify = useSelector(selectArticleToModify);
+  const article = useSelector(selectNewArticle);
+
+  if (articleToModify) {
+    dispatch(copyArticleToModifyAsNewArticle());
+  }
 
   const [editorBlocsDisplay, setEditorBlocs] = useState({
     subtitle: true,
@@ -91,6 +104,7 @@ const NewArticleForm = () => {
             onChange={(e) => dispatch(addTitle(e.target.value))}
             type='text'
             name='title'
+            value={article.title}
           />
           <h2 className='article-form__title'>IMAGE :</h2>
           <input
@@ -141,105 +155,23 @@ const NewArticleForm = () => {
               AJOUTER CODE
             </button>
           </section>
-          <div
-            className='editor-bloc'
-            style={{ display: editorBlocsDisplay.paragraph ? 'block' : 'none' }}
-          >
-            {' '}
-            <h2 className='article-form__title'>PARAGRAPHE</h2>
-            <textarea
-              id='input-paragraph'
-              onChange={(e) =>
-                setContents({
-                  ...contents,
-                  paragraph: { type: 'paragraph', content: e.target.value },
-                })
-              }
-              type='text'
-              name='paragraph'
-              rows='4'
-              cols='50'
-              placeholder='Entrez votre paragraphe ici'
-            ></textarea>
-            <br />
-            <button
-              className='article-form__button'
-              id='new-paragraph'
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(addElement(contents.paragraph));
-              }}
-            >
-              Ajouter Paragraphe{' '}
-            </button>
-          </div>
-          <div
-            className='editor-bloc'
-            style={{ display: editorBlocsDisplay.subtitle ? 'block' : 'none' }}
-          >
-            {' '}
-            <h2 className='article-form__title'>SOUS-TITRE</h2>
-            <input
-              id='input-subtitle'
-              onChange={(e) =>
-                setContents({
-                  ...contents,
-                  subtitle: { type: 'subtitle', content: e.target.value },
-                })
-              }
-              type='text'
-              name='subtitle'
-              placeholder='Ajouter un sous-titre'
-            />
-            <br />
-            <button
-              className='article-form__button'
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(addElement(contents.subtitle));
-              }}
-            >
-              Ajouter sous-titre{' '}
-            </button>
-          </div>
-          <div
-            className='editor-bloc'
-            style={{ display: editorBlocsDisplay.code ? 'block' : 'none' }}
-          >
-            {' '}
-            <h2 className='article-form__title'>CODE</h2>
-            <textarea
-              id='input-code'
-              onChange={(e) =>
-                setContents({
-                  ...contents,
-                  code: { type: 'code', content: e.target.value },
-                })
-              }
-              name='code'
-              rows='8'
-              cols='50'
-              placeholder='Insérez votre code ici'
-            ></textarea>
-            <br />
-            <button
-              className='article-form__button'
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(addElement(contents.code));
-              }}
-            >
-              Ajouter code{' '}
-            </button>
-          </div>
+          {editorBlocsDisplay.paragraph && (
+            <ParagraphCreator setContents={setContents} contents={contents} />
+          )}
+          {editorBlocsDisplay.subtitle && (
+            <SubtitleCreator setContents={setContents} contents={contents} />
+          )}
+
+          {editorBlocsDisplay.code && (
+            <CodeCreator setContents={setContents} contents={contents} />
+          )}
         </div>
         <ArticleView />
         <div id='publish-bloc'>
-          {' '}
           <input
             id='publish-button'
             type='submit'
-            value={'Publier'}
+            value={articleToModify ? 'Modifier' : 'Publier'}
             onClick={(e) => {
               e.preventDefault();
               handleSubmit();

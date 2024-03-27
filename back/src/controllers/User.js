@@ -187,6 +187,7 @@ class User {
   updateUser = async (req, res) => {
     try {
       const { currentEmail, firstName, lastName, email, password } = req.body;
+      console.log(req.body);
 
       // Début de la validation des données
       const errors = [];
@@ -237,7 +238,7 @@ class User {
         email: currentEmail.toLowerCase().trim(),
       });
       if (!user) {
-        return res.status(404).send('Utilisateur non trouvé avec cet email.');
+        return res.status(404).send('Utilisateur non trouvé avec cet email');
       }
       // Vérification du mot de passe
       const isMatch = await bcrypt.compare(password, user.password);
@@ -257,6 +258,7 @@ class User {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        role: user.role,
       };
 
       res.status(200).send({
@@ -270,6 +272,144 @@ class User {
         .send(
           'Une erreur interne est survenue lors de la mise à jour du profil utilisateur.'
         );
+    }
+  };
+
+  deleteUser = async (req, res) => {
+    try {
+      const { email, password } = req.body;
+
+      // Début de la validation des données
+      const errors = [];
+
+      if (!email) {
+        errors.push("L'email est requis.");
+      }
+
+      if (!password) {
+        errors.push('Le mot de passe est requis.');
+      }
+
+      // Arrêter ici si des erreurs de validation sont trouvées
+      if (errors.length > 0) {
+        return res.status(400).json({ errors });
+      }
+
+      // Trouver l'utilisateur par email
+      const user = await NewUser.findOne({ email: email.toLowerCase().trim() });
+      if (!user) {
+        errors.push('Utilisateur non trouvé avec cet email.');
+        return res.status(404).json({ errors });
+      }
+
+      // Vérifier que le mot de passe est correct
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        errors.push('Mot de passe incorrect.');
+        return res.status(401).json({ errors });
+      }
+
+      // Supprimer l'utilisateur
+      await NewUser.findOneAndDelete({ email: email.toLowerCase().trim() });
+      res
+        .status(200)
+        .send({ message: 'Le compte utilisateur a été supprimé avec succès.' });
+    } catch (error) {
+      console.error(error);
+      // En cas d'erreur serveur inattendue, renvoyer également un tableau d'erreurs
+      res.status(500).json({
+        errors: [
+          'Une erreur interne est survenue lors de la tentative de suppression du compte utilisateur.',
+        ],
+      });
+    }
+  };
+
+  getUserPreferences = async (req, res) => {
+    try {
+      const { email } = req.body;
+      const user = await NewUser.findOne({ email: email.toLowerCase().trim() });
+      if (!user) {
+        return res.status(404).send('Utilisateur non trouvé avec cet email');
+      }
+      res.status(200).send({ preferences: user.preferences });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Une erreur est survenue.');
+    }
+  };
+
+  deleteArticleFromPreferences = async (req, res) => {
+    try {
+      const { email, articleId } = req.body;
+
+      const user = await NewUser.findOne({ email: email.toLowerCase().trim() });
+      if (!user) {
+        return res.status(404).send('Utilisateur non trouvé avec cet email');
+      }
+      user.preferences = user.preferences.filter((id) => id !== articleId);
+      await user.save();
+      res.status(200).send({ preferences: user.preferences });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Une erreur est survenue.');
+    }
+  };
+
+  addLike = async (req, res) => {
+    try {
+      const { articleId, userEmail } = req.body;
+      const article = await NewArticle.findById(articleId);
+      if (!article) {
+        return res.status(404).send('Article non trouvé avec cet identifiant');
+      }
+
+      const user = await NewUser.findOne({
+        email: userEmail.toLowerCase().trim(),
+      });
+      if (!user) {
+        return res.status(404).send('Utilisateur non trouvé avec cet email');
+      }
+      if (!user.likes.includes(articleId)) {
+        user.likes.push(articleId);
+        await user.save();
+        return res.status(200).send('Un like ajouté');
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Une erreur est survenue lors de l'ajout du like`);
+    }
+  };
+
+  removeLike = async (req, res) => {
+    try {
+      const { articleId, userEmail } = req.body;
+      const article = await NewArticle.findById(articleId);
+      if (!article) {
+        return res.status(404).send('Article non trouvé avec cet identifiant');
+      }
+
+      const user = await NewUser.findOne({
+        email: userEmail.toLowerCase().trim(),
+      });
+      if (!user) {
+        return res.status(404).send('Utilisateur non trouvé avec cet email');
+      }
+      const index = user.likes.indexOf(articleId);
+      if (index > -1) {
+        user.likes.splice(index, 1); // Retire l'article des likes
+        await user.save();
+        return res.status(200).send('Un like retiré');
+      } else {
+        return res
+          .status(404)
+          .send("Cet article n'a pas été liké par l'utilisateur");
+      }
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send(`Une erreur est survenue lors de la suppression du like`);
     }
   };
 }

@@ -20,6 +20,10 @@ const UserSlice = createSlice({
     },
     disconnectUser(state) {
       state.user.connected = false;
+      state.user.isAdmin = false;
+      if (state.user.profil) {
+        state.user.profil = {};
+      }
     },
   },
 });

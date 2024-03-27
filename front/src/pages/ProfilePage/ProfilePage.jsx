@@ -1,16 +1,21 @@
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../store/Selectors/userSelectors';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { disconnectUser } from '../../store/slices/UserSlice';
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector(selectUser).profil;
   const [modifiedUser, setModifiedUser] = useState({
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    role: user.role,
   });
   const [password, setPassword] = useState('');
 
@@ -57,17 +62,31 @@ const ProfilePage = () => {
     if (hasErrors) return;
 
     // Tentative de mise à jour du profil en l'absence d'erreurs
+    const request = {
+      ...modifiedUser,
+      currentEmail: user.email,
+      password: password,
+    };
+    console.log(request);
     try {
-      const response = await axios.put('http://localhost:3000/user/update', {
-        ...modifiedUser,
-        currentEmail: user.email,
-        password,
-      });
+      const response = await axios.put(
+        'http://localhost:3000/user/update',
+        request
+      );
 
       const successMessage =
         response.data.message || 'Profil mis à jour avec succès';
       toast.success(successMessage);
+      toast.info('Veuillez-vous reconnecter');
       setPassword('');
+      // dispatch(updateUser({ ...response.data.user }));
+
+      dispatch(disconnectUser());
+
+      // Attente de 7s avant de rediriger vers la page de connexion
+      setTimeout(() => {
+        navigate('/connexion');
+      }, 7000);
     } catch (error) {
       if (error.response) {
         // Affichage des erreurs
@@ -97,10 +116,35 @@ const ProfilePage = () => {
       )
     ) {
       try {
-        await axios.delete('http://localhost:3000/api/user/delete');
+        const response = await axios.delete(
+          'http://localhost:3000/user/delete',
+          {
+            data: {
+              email: modifiedUser.email,
+              password: password,
+            },
+          }
+        );
+
+        // La requête a réussi
         toast.success('Profil supprimé avec succès');
+        navigate('/');
       } catch (error) {
-        toast.error('Erreur lors de la suppression du profil');
+        // Gestion des erreurs retournées par le serveur sous forme de tableau
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.errors
+        ) {
+          error.response.data.errors.forEach((err) => toast.error(err));
+        } else {
+          // Gestion des erreurs non spécifiques
+          const errorMessage =
+            error.response && error.response.data && error.response.data.message
+              ? error.response.data.message
+              : 'Une erreur est survenue. Veuillez réessayer.';
+          toast.error(errorMessage);
+        }
       }
     }
   };

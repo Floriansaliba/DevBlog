@@ -8,7 +8,7 @@ class Article {
       const article = req.body;
       console.log(article);
 
-      const base64Image = article.image.replace(
+      const base64Image = article.imageName.replace(
         /^data:image\/(png|jpeg|webp);base64,/,
         ''
       );
@@ -47,6 +47,20 @@ class Article {
     }
   }
 
+  async getArticle(req, res) {
+    try {
+      const { articleId } = req.params;
+      const article = await NewArticle.findById(articleId);
+      if (!article) {
+        return res.status(404).send('Article non trouvé');
+      }
+      res.status(200).send({ article });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Une erreur est survenue');
+    }
+  }
+
   async addView(req, res) {
     try {
       const { articleId } = req.params;
@@ -76,6 +90,20 @@ class Article {
     } catch (error) {
       console.error(error);
       res.status(500).send(`Une erreur est survenue lors de l'ajout du like`);
+    }
+  }
+
+  async deleteArticle(req, res) {
+    try {
+      const { articleId } = req.params;
+      const article = await NewArticle.findByIdAndDelete(articleId);
+      if (!article) {
+        return res.status(404).send('Article non trouvé');
+      }
+      res.status(200).send('Article supprimé');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Une erreur est survenue lors de la suppression`);
     }
   }
 }

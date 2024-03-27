@@ -27,7 +27,6 @@ const ArticlesPage = () => {
       <section id='articles'>
         {articles.length > 0 &&
           articles.map((article) => {
-            console.log(article.imageName);
             return <MiniatureArticle key={article._id} article={article} />;
           })}
       </section>

@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import MySelectionPage from './pages/MySelectionPage/MySelectionPage';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           }
         />
         <Route path={'/nouvel-article'} element={<NewArticleForm />} />
+        <Route path={'/selection'} element={<MySelectionPage />} />
         <Route path={'/*'} element={<Page404 />} />
       </Routes>
     </>

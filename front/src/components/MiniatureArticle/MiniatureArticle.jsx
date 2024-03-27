@@ -1,22 +1,77 @@
 /* eslint-disable react/prop-types */
 import './MiniatureArticle.scss';
 import defaultImage from './../../assets/images/default_image.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../store/Selectors/userSelectors';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { saveArticleToModify } from '../../store/slices/NewArticleSlice';
 
-const MiniatureArticle = ({ article }) => {
+const MiniatureArticle = ({ article, deleteOption = false }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isAdmin = useSelector(selectUser).isAdmin;
+  const userEmail = useSelector(selectUser)?.profil?.email;
 
   const { title, imageName, likes, views, _id } = article;
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.stopPropagation();
     navigate(`/articles/${_id}`);
   };
 
+  const deleteArticleFromArticles = (e) => {
+    e.stopPropagation();
+    axios
+      .delete(`http://localhost:3000/articles/${_id}/delete`)
+      .then((res) => {
+        if (res.status === 200) {
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteArticleFromUserPreferences = (e) => {
+    e.stopPropagation();
+    console.log(userEmail, _id);
+    if (window.confirm('Validez-vous la suppression de cet article?')) {
+      axios
+        .delete('http://localhost:3000/user/preferences/deleteArticle', {
+          data: {
+            email: userEmail,
+            articleId: _id,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            window.location.reload();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const modifyArticle = (e) => {
+    e.stopPropagation();
+    dispatch(saveArticleToModify(article));
+    navigate('/nouvel-article');
+  };
+
   return !isAdmin ? (
-    <div className='miniature-article' id={_id} onClick={handleClick}>
+    <div className='miniature-article' id={_id} onClick={(e) => handleClick(e)}>
+      {deleteOption && (
+        <button
+          className='delete-button'
+          onClick={(e) => deleteArticleFromUserPreferences(e)}
+        >
+          X
+        </button>
+      )}
       <img
         src={
           imageName ? `http://localhost:3000/images/${imageName}` : defaultImage
@@ -29,6 +84,14 @@ const MiniatureArticle = ({ article }) => {
     </div>
   ) : (
     <div className='miniature-article--admin' id={_id} onClick={handleClick}>
+      {deleteOption && (
+        <button
+          className='delete-button'
+          onClick={(e) => deleteArticleFromUserPreferences(e)}
+        >
+          X
+        </button>
+      )}
       <div className='image-and-title'>
         <img
           src={
@@ -58,8 +121,22 @@ const MiniatureArticle = ({ article }) => {
           </div>
         </div>
         <div className='miniature-actions'>
-          <button className='miniature-action-modify'>Modifier</button>
-          <button className='miniature-action-delete'>Supprimer</button>
+          <button
+            className='miniature-action-modify'
+            onClick={(e) => {
+              modifyArticle(e);
+            }}
+          >
+            Modifier
+          </button>
+          <button
+            className='miniature-action-delete'
+            onClick={(e) => {
+              deleteArticleFromArticles(e);
+            }}
+          >
+            Supprimer
+          </button>
         </div>
       </div>
     </div>
