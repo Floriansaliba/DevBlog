@@ -3,6 +3,7 @@ import { selectArticles } from '../../store/Selectors/articlesSelector';
 import { useEffect } from 'react';
 import { fetchArticles } from '../../store/slices/ArticlesSlice';
 import MiniatureArticle from '../../components/MiniatureArticle/MiniatureArticle';
+import './HomePage.scss';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -24,18 +25,22 @@ export const HomePage = () => {
 
   return (
     <>
-      <h2>A la une</h2>
-      {newestArticles.length > 0 &&
-        newestArticles.map((article) => {
-          console.log(article.imageName);
-          return <MiniatureArticle key={article._id} article={article} />;
-        })}
-      <h2>Les plus populaires</h2>
-      {mostPopularArticles.length > 0 &&
-        mostPopularArticles.map((article) => {
-          console.log(article.imageName);
-          return <MiniatureArticle key={article._id} article={article} />;
-        })}
+      <h2 className='accueil__title'>A la une</h2>
+      <div className='display-frame'>
+        {newestArticles.length > 0 &&
+          newestArticles.map((article) => {
+            console.log(article.imageName);
+            return <MiniatureArticle key={article._id} article={article} />;
+          })}
+      </div>
+      <h2 className='accueil__title'>Les plus populaires</h2>
+      <div className='display-frame'>
+        {mostPopularArticles.length > 0 &&
+          mostPopularArticles.map((article) => {
+            console.log(article.imageName);
+            return <MiniatureArticle key={article._id} article={article} />;
+          })}
+      </div>
     </>
   );
 };

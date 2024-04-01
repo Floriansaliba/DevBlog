@@ -21,9 +21,9 @@ const SortArticles = () => {
   return (
     <div id='filter-articles'>
       <span>Trier par :</span>
-      <button onClick={getNewestArticles}>Date</button>
-      <button onClick={getMostLikedArticles}>Likes</button>
-      <button onClick={getMostSeenArticles}>Vues</button>
+      <button onClick={getNewestArticles}>Les plus récents</button>
+      <button onClick={getMostLikedArticles}>Les plus likés</button>
+      <button onClick={getMostSeenArticles}>Les plus vus</button>
     </div>
   );
 };

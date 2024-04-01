@@ -148,8 +148,8 @@ const ArticleView = ({ id }) => {
               className='article__image'
               src={
                 id
-                  ? `http://localhost:3000/images/${selectedArticle.imageName}`
-                  : newArticle.image
+                  ? `http://localhost:3000/images/${newArticle.imageName}`
+                  : `http://localhost:3000/images/${newArticle.imageName}`
               }
               alt={id ? selectedArticle.title : newArticle.title}
             />

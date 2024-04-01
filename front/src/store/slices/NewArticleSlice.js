@@ -10,12 +10,20 @@ const NewArticleSlice = createSlice({
   initialState,
   reducers: {
     addTitle(state, action) {
+      if (state.articleToModify !== null) {
+        state.articleToModify.title = action.payload;
+        return;
+      }
       state.newArticle.title = action.payload;
     },
     addImage(state, action) {
       state.newArticle.imageName = action.payload;
     },
     addElement(state, action) {
+      if (state.articleToModify !== null) {
+        state.articleToModify.content.push(action.payload);
+        return;
+      }
       const element = action.payload;
       state.newArticle.content.push(element);
     },
@@ -41,6 +49,10 @@ const NewArticleSlice = createSlice({
     copyArticleToModifyAsNewArticle(state) {
       state.newArticle = state.articleToModify;
     },
+    clearNewArticle(state) {
+      state.newArticle = { title: '', imageName: '', content: [] };
+      state.articleToModify = null;
+    },
   },
 });
 
@@ -52,5 +64,6 @@ export const {
   saveArticleToModify,
   copyArticleToModifyAsNewArticle,
   modifyElement,
+  clearNewArticle,
 } = NewArticleSlice.actions;
 export default NewArticleSlice;

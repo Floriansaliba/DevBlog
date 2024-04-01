@@ -1,3 +1,4 @@
+import './ProfilePage.scss';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -152,8 +153,8 @@ const ProfilePage = () => {
   return (
     <>
       <ToastContainer />
-      <h1>Profil</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className='title'>Profil</h1>
+      <form id='profil-form' onSubmit={handleSubmit}>
         <label>
           Prénom :
           <input

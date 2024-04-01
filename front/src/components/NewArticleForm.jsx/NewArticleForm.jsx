@@ -6,6 +6,7 @@ import {
   addTitle,
   addImage,
   copyArticleToModifyAsNewArticle,
+  clearNewArticle,
 } from '../../store/slices/NewArticleSlice';
 import ArticleView from '../ArticleView/ArticleView';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,6 +17,7 @@ import {
 import ParagraphCreator from '../ParagraphCreator/ParagraphCreator';
 import SubtitleCreator from '../SubtitleCreator/SubtitleCreator';
 import CodeCreator from '../CodeCreator/CodeCreator';
+import { toast } from 'react-toastify';
 
 // Formulaire permettant de créer un nouvel article, ou de modifier un article existant
 
@@ -42,10 +44,12 @@ const NewArticleForm = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    console.log(file);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result;
+        console.log(base64String);
         dispatch(addImage(base64String));
         setImage(base64String);
       };
@@ -54,14 +58,70 @@ const NewArticleForm = () => {
   };
 
   const handleSubmit = async () => {
+    // Si l'article est un article à modifier, on le modifie en BDD :
+    if (articleToModify) {
+      try {
+        const response = await axios.put(
+          `http://localhost:3000/articles/${article._id}/modify`,
+          { article }
+        );
+        if (response.status === 200) {
+          toast.success('Modification enregistrée !');
+          dispatch(clearNewArticle());
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
+      return;
+    }
+
+    // Sinon on créé un nouvel article et on l'ajoute en BDD :
     try {
+      // Vérification du titre
+      if (!article.title) {
+        toast.error('Veuillez ajouter un titre');
+        return;
+      }
+      // Vérification de l'image
+      if (!article.imageName) {
+        toast.error('Veuillez ajouter une image');
+        return;
+      }
+      // Vérification du contenu de l'article
+      let subtitles = 0;
+      let paragraphs = 0;
+
+      article.content.forEach((el) => {
+        if (el.type === 'subtitle') {
+          subtitles++;
+        }
+        if (el.type === 'paragraph') {
+          paragraphs++;
+        }
+      });
+
+      if (subtitles < 1 || paragraphs < 1) {
+        toast.error('Veuillez ajouter au moins un sous-titre et un paragraphe');
+        return;
+      }
+
+      // Envoi de la requête
       const response = await axios.post(
         'http://localhost:3000/new-article',
         article
       );
-      console.log(response.data);
+      console.log(response.status);
+      if (response.status === 400) {
+        toast.error(response.data.message);
+        return;
+      }
+      if (response.status === 201) {
+        toast.success('Nouvel article enregistré !');
+        dispatch(clearNewArticle());
+      }
     } catch (err) {
-      console.error('Erreur lors de l envoi de la requête:', err.response);
+      toast.error(err.message);
     }
   };
 

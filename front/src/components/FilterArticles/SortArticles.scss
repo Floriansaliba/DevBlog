@@ -1,6 +1,7 @@
 @import '../../styles/index.scss';
 
 #filter-articles {
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   margin-bottom: 45px;
@@ -25,8 +26,12 @@
     letter-spacing: 1px;
     font-family: $font-play;
     margin-bottom: 8px;
+
     &:hover {
       cursor: pointer;
+    }
+    @include desktop {
+      margin-left: 36px;
     }
   }
 }

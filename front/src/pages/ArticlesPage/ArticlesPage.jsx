@@ -24,11 +24,14 @@ const ArticlesPage = () => {
   return (
     <>
       <SortArticles />
+
       <section id='articles'>
-        {articles.length > 0 &&
-          articles.map((article) => {
-            return <MiniatureArticle key={article._id} article={article} />;
-          })}
+        <div className='display-frame'>
+          {articles.length > 0 &&
+            articles.map((article) => {
+              return <MiniatureArticle key={article._id} article={article} />;
+            })}
+        </div>
       </section>
       <Paging totalOfPages={totalOfPages} />
     </>
