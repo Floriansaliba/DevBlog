@@ -1,15 +1,19 @@
 .accueil__title {
   color: black;
-  font-size: bold;
+  font-weight: bold;
   font-size: 27px;
   margin-bottom: 39px;
   margin-top: 70px;
+  @include desktop {
+    font-size: 33px;
+  }
 }
 
 .display-frame {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  gap: 25px;
   flex-wrap: wrap;
 }

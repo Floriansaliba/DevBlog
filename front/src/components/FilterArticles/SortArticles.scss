@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 45px;
+  padding-bottom: 5px;
+  border-bottom: solid 2px $color-blue;
   @include desktop {
     flex-direction: row;
   }

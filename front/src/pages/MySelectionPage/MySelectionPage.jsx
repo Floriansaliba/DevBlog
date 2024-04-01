@@ -38,7 +38,7 @@ const MySelectionPage = () => {
   return (
     <>
       <section id='articles'>
-        {filteredArticles.length > 0 &&
+        {filteredArticles.length > 0 ? (
           filteredArticles.map((article) => {
             return (
               <MiniatureArticle
@@ -47,7 +47,12 @@ const MySelectionPage = () => {
                 deleteOption={true}
               />
             );
-          })}
+          })
+        ) : (
+          <p className='no-data'>
+            Aucun article dans votre sélection actuellement
+          </p>
+        )}
       </section>
     </>
   );

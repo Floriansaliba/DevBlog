@@ -162,6 +162,7 @@ const ProfilePage = () => {
             name='firstName'
             placeholder={user.firstName}
             onChange={handleChange}
+            value={modifiedUser.firstName}
           />
         </label>
         <label>
@@ -192,9 +193,13 @@ const ProfilePage = () => {
             value={password}
           />
         </label>
-        <button type='submit'>Mettre à jour</button>
+        <button className='btn' type='submit'>
+          Mettre à jour
+        </button>
+        <button className='btn--unsubscribe' onClick={handleDelete}>
+          Se désinscire
+        </button>
       </form>
-      <button onClick={handleDelete}>Se désinscire</button>
     </>
   );
 };

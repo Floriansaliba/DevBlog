@@ -3,13 +3,23 @@
 #profil-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   max-width: 215px;
   margin: auto;
   margin-top: 37px;
-  & > input {
+  @include desktop {
+    max-width: 500px;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  & > label {
+    font-size: 16px;
+    width: 100%;
+  }
+  & > label > input {
+    margin-top: 5px;
     width: 100%;
     margin-bottom: 12px;
     border-radius: 8px;
@@ -22,5 +32,43 @@
     &:focus {
       outline: none;
     }
+  }
+}
+
+.btn--unsubscribe {
+  display: block;
+  width: 100%;
+  background-color: $color-red;
+  color: white;
+  font-family: $font-title;
+  font-size: 20.8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+  border: none;
+  padding: 8px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn--update {
+  display: block;
+  width: 100%;
+  background-color: $color-green;
+  color: white;
+  font-family: $font-title;
+  font-size: 20.8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+  border: none;
+  padding: 8px;
+  margin-top: 5px;
+  letter-spacing: 1px;
+  &:hover {
+    cursor: pointer;
   }
 }

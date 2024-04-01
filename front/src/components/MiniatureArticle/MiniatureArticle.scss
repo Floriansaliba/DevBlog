@@ -10,10 +10,11 @@
   border-radius: 8px;
   color: white;
   padding: 8px;
-  margin-bottom: 25px;
   width: 291px;
+  box-shadow: none;
   &:hover {
     cursor: pointer;
+    box-shadow: 0 2px 5px #858080;
     & > .delete-button {
       display: flex;
     }

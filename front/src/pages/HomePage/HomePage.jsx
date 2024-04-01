@@ -9,10 +9,10 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   const articles = useSelector(selectArticles);
   const mostPopularArticles = [...articles]
-    .slice(0, 5)
+    .slice(0, 6)
     .sort((a, b) => b.likes - a.likes);
 
-  const newestArticles = [...articles].slice(0, 5).sort((a, b) => {
+  const newestArticles = [...articles].slice(0, 6).sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
 

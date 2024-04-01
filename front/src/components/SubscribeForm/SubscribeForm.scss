@@ -46,5 +46,9 @@
   border: none;
   padding: 8px;
   margin-top: 43px;
+  text-transform: uppercase;
   letter-spacing: 1px;
+  &:hover {
+    cursor: pointer;
+  }
 }
