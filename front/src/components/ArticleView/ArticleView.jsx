@@ -10,12 +10,14 @@ import { deleteElement } from '../../store/slices/NewArticleSlice';
 import ParagraphCreator from '../ParagraphCreator/ParagraphCreator';
 import CodeCreator from '../CodeCreator/CodeCreator';
 import SubtitleCreator from '../SubtitleCreator/SubtitleCreator';
+import { useLocation } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 const ArticleView = ({ id }) => {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editingIndex, setEditingIndex] = useState(null);
+  const pathName = useLocation().pathname;
 
   const dispatch = useDispatch();
 
@@ -65,18 +67,26 @@ const ArticleView = ({ id }) => {
     switch (element.type) {
       case 'subtitle':
         return (
-          <div key={index}>
+          <div className='article__subtitle-frame' key={index}>
             <h2 id={element.id} className='article__subtitle'>
               {element.content}
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  dispatch(deleteElement({ index: index, type: element.type }));
-                }}
-              >
-                delete
-              </button>
-              <button onClick={(e) => handleEditClick(e, index)}>modify</button>
+              {pathName === '/nouvel-article' && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(
+                        deleteElement({ index: index, type: element.type })
+                      );
+                    }}
+                  >
+                    delete
+                  </button>
+                  <button onClick={(e) => handleEditClick(e, index)}>
+                    modify
+                  </button>
+                </>
+              )}
             </h2>
             {editingIndex === index && (
               <SubtitleCreator
@@ -92,15 +102,23 @@ const ArticleView = ({ id }) => {
           <div key={index}>
             <p id={element.id} className='article__paragraph'>
               {element.content}
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  dispatch(deleteElement({ index: index, type: element.type }));
-                }}
-              >
-                delete
-              </button>
-              <button onClick={(e) => handleEditClick(e, index)}>modify</button>
+              {pathName === '/nouvel-article' && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(
+                        deleteElement({ index: index, type: element.type })
+                      );
+                    }}
+                  >
+                    delete
+                  </button>
+                  <button onClick={(e) => handleEditClick(e, index)}>
+                    modify
+                  </button>{' '}
+                </>
+              )}
             </p>
             {editingIndex === index && (
               <ParagraphCreator
@@ -113,18 +131,26 @@ const ArticleView = ({ id }) => {
         );
       case 'code':
         return (
-          <div key={index}>
+          <div className='article__code' key={index}>
             <pre id={element.id}>
               <code>{element.content}</code>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  dispatch(deleteElement({ index: index, type: element.type }));
-                }}
-              >
-                delete
-              </button>
-              <button onClick={(e) => handleEditClick(e, index)}>modify</button>
+              {pathName === '/nouvel-article' && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(
+                        deleteElement({ index: index, type: element.type })
+                      );
+                    }}
+                  >
+                    delete
+                  </button>
+                  <button onClick={(e) => handleEditClick(e, index)}>
+                    modify
+                  </button>
+                </>
+              )}
             </pre>
             {editingIndex === index && (
               <CodeCreator modify={true} index={index} type={element.type} />
@@ -160,13 +186,13 @@ const ArticleView = ({ id }) => {
               : newArticle.content.map((element, index) =>
                   renderArticleElement(element, index)
                 )}
+            {id && (
+              <ArticleActionBar
+                id={id}
+                date={selectedArticle && selectedArticle.date}
+              />
+            )}
           </article>
-          {id && (
-            <ArticleActionBar
-              id={id}
-              date={selectedArticle && selectedArticle.date}
-            />
-          )}
         </>
       ) : (
         <p>Chargement...</p>

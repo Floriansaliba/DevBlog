@@ -6,20 +6,38 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-top: 39px;
+  margin-bottom: 33px;
+}
+
+.article-date {
+  font-size: 16px;
+  font-weight: bold;
+  @include desktop {
+    font-size: 26px;
+  }
 }
 
 .bookmark {
-  width: 56px;
+  width: 28px;
+  margin-left: 23px;
   cursor: pointer;
+  @include desktop {
+    width: 56px;
+    margin-left: 46px;
+  }
   & > path {
     fill: $color-blue;
   }
 }
 
 .heart {
-  width: 78px;
+  width: 39px;
   cursor: pointer;
   & > path {
     fill: $color-blue;
+  }
+  @include desktop {
+    width: 78px;
   }
 }

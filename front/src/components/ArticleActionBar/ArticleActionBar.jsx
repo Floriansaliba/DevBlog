@@ -10,11 +10,8 @@ export const ArticleActionBar = ({ id, date }) => {
   const [isLiked, setIsliked] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const user = useSelector(selectUser);
-
   const connected = user.connected;
-
   const articleDate = new Date(date);
-
   const day = articleDate.getDate().toString().padStart(2, '0');
   const month = (articleDate.getMonth() + 1).toString().padStart(2, '0');
   const year = articleDate.getFullYear();
@@ -88,7 +85,7 @@ export const ArticleActionBar = ({ id, date }) => {
 
   return (
     <div id='action-bar'>
-      <span>{`${day}/${month}/${year}`}</span>
+      <span className='article-date'>{`${day}/${month}/${year}`}</span>
       <div className='user-actions'>
         {' '}
         {isLiked ? (

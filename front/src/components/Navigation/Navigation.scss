@@ -1,6 +1,7 @@
 @import '../../styles/index.scss';
 
 #navigation {
+  z-index: 40;
   position: absolute;
   top: 56px;
   right: 0;

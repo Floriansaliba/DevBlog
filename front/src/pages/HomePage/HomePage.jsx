@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectArticles } from '../../store/Selectors/articlesSelector';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchArticles } from '../../store/slices/ArticlesSlice';
 import MiniatureArticle from '../../components/MiniatureArticle/MiniatureArticle';
 import './HomePage.scss';
@@ -29,7 +29,6 @@ export const HomePage = () => {
       <div className='display-frame'>
         {newestArticles.length > 0 &&
           newestArticles.map((article) => {
-            console.log(article.imageName);
             return <MiniatureArticle key={article._id} article={article} />;
           })}
       </div>

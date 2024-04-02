@@ -29,7 +29,7 @@ const SubscribeForm = () => {
         formData
       );
       toast.success('Vous êtes inscrit :)');
-      navigate('/');
+      navigate('/connexion');
     } catch (error) {
       if (error.response && error.response.data.errors) {
         error.response.data.errors.forEach((err) => {
