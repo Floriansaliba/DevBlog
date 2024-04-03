@@ -1,11 +1,30 @@
+import { useDispatch, useSelector } from 'react-redux';
 import './Paging.scss';
+import {
+  currentPage,
+  numberOfArticlesPerPage,
+  selectArticles,
+} from '../../store/Selectors/articlesSelector';
+import { goToPage } from '../../store/slices/ArticlesSlice';
 // eslint-disable-next-line react/prop-types
-const Paging = ({ totalOfPages }) => {
+const Paging = () => {
+  const dispatch = useDispatch();
+  const totalOfArticles = useSelector(selectArticles).length;
+  const articlesPerPages = useSelector(numberOfArticlesPerPage);
+  const pageNumber = useSelector(currentPage);
+  const numberOfPages = Math.ceil(totalOfArticles / articlesPerPages);
+
   return (
     <div id='paging'>
       <ul className='pages-list'>
-        {Array.from({ length: totalOfPages }).map((_, i) => (
-          <li className='page-number' key={i}>
+        {Array.from({ length: numberOfPages }).map((_, i) => (
+          <li
+            onClick={() => {
+              dispatch(goToPage(i + 1));
+            }}
+            className={`page-number ${pageNumber === i + 1 ? 'active' : ''}`}
+            key={i}
+          >
             {i + 1}
           </li>
         ))}

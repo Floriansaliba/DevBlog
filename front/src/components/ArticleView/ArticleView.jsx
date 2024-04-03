@@ -72,7 +72,15 @@ const ArticleView = ({ id }) => {
               {element.content}
               {pathName === '/nouvel-article' && (
                 <>
+                  {' '}
                   <button
+                    className='modify-element'
+                    onClick={(e) => handleEditClick(e, index)}
+                  >
+                    modifier
+                  </button>
+                  <button
+                    className='delete-element'
                     onClick={(e) => {
                       e.preventDefault();
                       dispatch(
@@ -80,10 +88,7 @@ const ArticleView = ({ id }) => {
                       );
                     }}
                   >
-                    delete
-                  </button>
-                  <button onClick={(e) => handleEditClick(e, index)}>
-                    modify
+                    Supprimer
                   </button>
                 </>
               )}
@@ -104,7 +109,15 @@ const ArticleView = ({ id }) => {
               {element.content}
               {pathName === '/nouvel-article' && (
                 <>
+                  {' '}
                   <button
+                    className='modify-element'
+                    onClick={(e) => handleEditClick(e, index)}
+                  >
+                    modifier
+                  </button>
+                  <button
+                    className='delete-element'
                     onClick={(e) => {
                       e.preventDefault();
                       dispatch(
@@ -113,9 +126,6 @@ const ArticleView = ({ id }) => {
                     }}
                   >
                     delete
-                  </button>
-                  <button onClick={(e) => handleEditClick(e, index)}>
-                    modify
                   </button>{' '}
                 </>
               )}
@@ -136,7 +146,15 @@ const ArticleView = ({ id }) => {
               <code>{element.content}</code>
               {pathName === '/nouvel-article' && (
                 <>
+                  {' '}
                   <button
+                    className='modify-element'
+                    onClick={(e) => handleEditClick(e, index)}
+                  >
+                    modifier
+                  </button>
+                  <button
+                    className='delete-element'
                     onClick={(e) => {
                       e.preventDefault();
                       dispatch(
@@ -144,10 +162,7 @@ const ArticleView = ({ id }) => {
                       );
                     }}
                   >
-                    delete
-                  </button>
-                  <button onClick={(e) => handleEditClick(e, index)}>
-                    modify
+                    supprimer
                   </button>
                 </>
               )}

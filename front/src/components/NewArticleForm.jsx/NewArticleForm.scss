@@ -7,32 +7,45 @@
     rgba(255, 255, 255, 1) 0%,
     rgba(11, 160, 178, 1) 100%
   );
-  padding-top: 134px;
-  padding-left: 78px;
+  padding-top: 50px;
+  padding-left: 30px;
   padding-bottom: 81px;
+  @include desktop {
+    padding-top: 134px;
+    padding-left: 78px;
+    padding-bottom: 81px;
+  }
 }
 
 .article-form {
   width: 100%;
   &__title {
-    font-size: 33px;
+    font-size: 27px;
     font-weight: bold;
     line-height: 41px;
     letter-spacing: 1px;
     color: $color-blue;
     text-transform: uppercase;
     margin-bottom: 16px;
+    @include desktop {
+      font-size: 33px;
+    }
   }
   &__title-input {
-    height: 64px;
+    height: 50px;
     border-radius: 17px;
     border: none;
     width: 90%;
-    font-size: 45px;
+    font-size: 27px;
     border: solid 3px $color-blue;
     font-family: $font-play;
     font-weight: bold;
-    margin-bottom: 111px;
+    margin-bottom: 50px;
+    @include desktop {
+      height: 64px;
+      font-size: 45px;
+      margin-bottom: 111px;
+    }
     &:focus {
       border: solid 3px $color-green;
       outline: none;
@@ -40,24 +53,39 @@
   }
   &__button {
     background-color: $color-blue;
-    font-size: 20.8px;
+    font-size: 13px;
     letter-spacing: 1px;
     font-weight: bold;
     color: white;
-    padding: 8px 20px;
+    padding: 5px 10px;
     border-radius: 17px;
     border: none;
-    margin-right: 49px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+
+    @include desktop {
+      font-size: 20.8px;
+      padding: 8px 20px;
+      border-radius: 17px;
+      margin-right: 49px;
+    }
     &--active {
       background-color: $color-green;
-      font-size: 20.8px;
+      font-size: 13px;
       letter-spacing: 1px;
       font-weight: bold;
       color: white;
-      padding: 8px 20px;
+      padding: 5px 10px;
       border-radius: 17px;
       border: none;
-      margin-right: 49px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      @include desktop {
+        font-size: 20.8px;
+        padding: 8px 20px;
+        border-radius: 17px;
+        margin-right: 49px;
+      }
     }
     &:hover {
       cursor: pointer;
@@ -67,8 +95,12 @@
 }
 
 #action-buttons {
-  margin-top: 135px;
-  margin-bottom: 89px;
+  margin-top: 50px;
+  margin-bottom: 25px;
+  @include desktop {
+    margin-top: 135px;
+    margin-bottom: 89px;
+  }
 }
 
 #input-subtitle {
@@ -76,43 +108,65 @@
   border-radius: 8px;
   border: none;
   width: 90%;
-  font-size: 22px;
-  border: solid 3px $color-blue;
+  font-size: 21px;
+  border: solid 2px $color-blue;
   font-family: $font-play;
   font-weight: bold;
-  margin-bottom: 51px;
+  margin-bottom: 10px;
+  @include desktop {
+    height: 32px;
+    border-radius: 8px;
+    font-size: 22px;
+  }
   &:focus {
-    border: solid 3px $color-green;
+    border: solid 2px $color-green;
     outline: none;
+    @include desktop {
+      border: solid 3px $color-green;
+    }
   }
 }
 
 #input-paragraph {
-  height: 353px;
+  height: 200px;
   border-radius: 8px;
   border: none;
   width: 90%;
-  font-size: 22px;
-  border: solid 3px $color-blue;
-  font-family: $font-play;
-  font-weight: bold;
-  margin-bottom: 51px;
+  font-size: 16px;
+  border: solid 2px $color-blue;
+  font-family: $font-roboto;
+  margin-bottom: 10px;
+  @include desktop {
+    height: 353px;
+    border-radius: 8px;
+    font-size: 22px;
+    margin-bottom: 51px;
+    border: solid 3px $color-blue;
+  }
   &:focus {
-    border: solid 3px $color-green;
+    border: solid 2px $color-green;
     outline: none;
+    @include desktop {
+      border: solid 3px $color-green;
+    }
   }
 }
 
 #input-code {
-  height: 353px;
+  height: 200px;
   border-radius: 8px;
   border: none;
   width: 90%;
-  font-size: 22px;
-  border: solid 3px $color-blue;
-  font-family: $font-play;
-  font-weight: bold;
-  margin-bottom: 51px;
+  font-size: 16px;
+  border: solid 2px $color-blue;
+  font-family: $font-roboto;
+  margin-bottom: 10px;
+  @include desktop {
+    height: 353px;
+    font-size: 22px;
+    border: solid 3px $color-blue;
+    margin-bottom: 51px;
+  }
   &:focus {
     border: solid 3px $color-green;
     outline: none;
@@ -120,13 +174,17 @@
 }
 
 #publish-bloc {
-  margin-top: 110px;
-  margin-bottom: 75px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  @include desktop {
+    margin-top: 110px;
+    margin-bottom: 75px;
+  }
 }
 
 #publish-button {
@@ -135,11 +193,32 @@
   letter-spacing: 1px;
   font-weight: bold;
   color: white;
-  padding: 31px 99px;
+  padding: 15px 50px;
   border-radius: 17px;
   border: none;
   margin: auto;
+  @include desktop {
+    padding: 31px 99px;
+  }
   &:hover {
     cursor: pointer;
   }
+}
+
+#fileInput {
+  font-size: 10px;
+  width: 220px;
+  margin: 0;
+  @include desktop {
+    font-size: 22px;
+    width: auto;
+  }
+}
+
+#fileInput-image {
+  margin-top: 20px;
+  width: 50px;
+
+  margin-left: auto;
+  margin-right: auto;
 }

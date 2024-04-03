@@ -28,8 +28,15 @@
 
 .page-number {
   cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
   &:hover {
     background-color: white;
     color: black;
+  }
+  &.active {
+    background-color: white;
+    color: black;
+    pointer-events: none;
   }
 }

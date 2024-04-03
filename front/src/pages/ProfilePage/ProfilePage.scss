@@ -9,6 +9,7 @@
   max-width: 215px;
   margin: auto;
   margin-top: 37px;
+  margin-bottom: 37px;
   @include desktop {
     max-width: 500px;
     justify-content: flex-start;

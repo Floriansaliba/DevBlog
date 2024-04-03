@@ -5,6 +5,8 @@ const initialState = {
   articles: [],
   loading: false,
   error: null,
+  numberOfArticlesPerPage: 14,
+  currentPage: 1,
 };
 
 // Définition de l'action asynchrone pour fetch les artciles
@@ -47,6 +49,9 @@ const ArticlesSlice = createSlice({
         state.articles = sortedArticles;
       }
     },
+    goToPage(state, action) {
+      state.currentPage = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,6 +70,11 @@ const ArticlesSlice = createSlice({
   },
 });
 
-export const { getArticles, sortByNewest, sortByMostSeen, sortByMostLiked } =
-  ArticlesSlice.actions;
+export const {
+  getArticles,
+  sortByNewest,
+  sortByMostSeen,
+  sortByMostLiked,
+  goToPage,
+} = ArticlesSlice.actions;
 export default ArticlesSlice;

@@ -175,13 +175,10 @@ const NewArticleForm = () => {
             accept='image/*'
             name='image'
           />
+          <br />
 
           {image && (
-            <img
-              src={image}
-              alt='Uploaded image'
-              style={{ width: '100px', height: 'auto' }}
-            />
+            <img id='fileInput-image' src={image} alt='Uploaded image' />
           )}
           <section id='action-buttons'>
             <button
