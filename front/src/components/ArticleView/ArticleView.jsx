@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectNewArticle } from '../../store/Selectors/newArticleSelector';
+import {
+  selectArticleToModify,
+  selectNewArticle,
+} from '../../store/Selectors/newArticleSelector';
 import './ArticleView.scss';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/default.css';
@@ -14,6 +17,7 @@ import { useLocation } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 const ArticleView = ({ id }) => {
+  const articleToModify = useSelector(selectArticleToModify);
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -189,8 +193,10 @@ const ArticleView = ({ id }) => {
               className='article__image'
               src={
                 id
-                  ? `http://localhost:3000/images/${newArticle.imageName}`
-                  : `http://localhost:3000/images/${newArticle.imageName}`
+                  ? `http://localhost:3000/images/${selectedArticle.imageName}`
+                  : articleToModify
+                  ? `http://localhost:3000/images/${articleToModify.imageName}`
+                  : newArticle.imageName
               }
               alt={id ? selectedArticle.title : newArticle.title}
             />

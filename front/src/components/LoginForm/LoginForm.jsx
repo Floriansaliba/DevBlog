@@ -69,7 +69,7 @@ const LoginForm = () => {
         <input
           type='password'
           name='password'
-          placeholder='Password'
+          placeholder='Mot de passe'
           value={formData.password}
           onChange={handleChange}
         />

@@ -1,12 +1,14 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './SortArticles.scss';
 import {
   sortByMostLiked,
   sortByMostSeen,
   sortByNewest,
 } from '../../store/slices/ArticlesSlice';
+import { sortArticlesBy } from '../../store/Selectors/articlesSelector';
 
 const SortArticles = () => {
+  const sortBy = useSelector(sortArticlesBy);
   const dispatch = useDispatch();
   const getNewestArticles = () => {
     dispatch(sortByNewest());
@@ -20,10 +22,30 @@ const SortArticles = () => {
 
   return (
     <div id='filter-articles'>
-      <span>Trier par :</span>
-      <button onClick={getNewestArticles}>Les plus récents</button>
-      <button onClick={getMostLikedArticles}>Les plus likés</button>
-      <button onClick={getMostSeenArticles}>Les plus vus</button>
+      <button
+        onClick={getNewestArticles}
+        className={
+          sortBy === 'newest' ? 'btn-sort btn-sort--active' : 'btn-sort'
+        }
+      >
+        Les plus récents
+      </button>
+      <button
+        onClick={getMostLikedArticles}
+        className={
+          sortBy === 'likes' ? 'btn-sort btn-sort--active' : 'btn-sort'
+        }
+      >
+        Les plus likés
+      </button>
+      <button
+        onClick={getMostSeenArticles}
+        className={
+          sortBy === 'views' ? 'btn-sort btn-sort--active' : 'btn-sort'
+        }
+      >
+        Les plus vus
+      </button>
     </div>
   );
 };

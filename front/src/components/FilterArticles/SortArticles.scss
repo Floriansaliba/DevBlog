@@ -4,9 +4,16 @@
   margin-top: 70px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 45px;
   padding-bottom: 5px;
   border-bottom: solid 2px $color-blue;
+  @include tablet {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
   @include desktop {
     flex-direction: row;
   }
@@ -15,25 +22,36 @@
     font-size: 27px;
     margin-bottom: 23px;
   }
-  & button {
-    background-color: $color-blue;
-    border: none;
-    color: white;
-    border-radius: 17px;
-    height: 45px;
-    min-width: 179px;
-    max-width: 275px;
-    font-weight: bold;
-    font-size: 20.8px;
-    letter-spacing: 1px;
-    font-family: $font-play;
-    margin-bottom: 8px;
+}
 
-    &:hover {
-      cursor: pointer;
-    }
-    @include desktop {
-      margin-left: 36px;
-    }
+.btn-sort {
+  background-color: $color-blue;
+  border: none;
+  color: white;
+  border-radius: 17px;
+  height: 30px;
+  min-width: 179px;
+  max-width: 200px;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-family: $font-play;
+  margin-bottom: 8px;
+  margin-right: 5px;
+  margin-left: 5px;
+  &:hover {
+    cursor: pointer;
+    background-color: $color-green;
+  }
+  &--active {
+    background-color: $color-green;
+  }
+  @include desktop {
+    border-radius: 17px;
+    margin-left: 36px;
+    height: 45px;
+    min-width: 195px;
+    max-width: 275px;
+    font-size: 20.8px;
   }
 }

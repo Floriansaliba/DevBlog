@@ -48,14 +48,14 @@ const SubscribeForm = () => {
         <input
           type='text'
           name='firstName'
-          placeholder='First Name'
+          placeholder='Prénom'
           value={formData.firstName}
           onChange={handleChange}
         />
         <input
           type='text'
           name='lastName'
-          placeholder='Last Name'
+          placeholder='Nom'
           value={formData.lastName}
           onChange={handleChange}
         />
@@ -69,7 +69,7 @@ const SubscribeForm = () => {
         <input
           type='password'
           name='password'
-          placeholder='Password'
+          placeholder='Mot de passe'
           value={formData.password}
           onChange={handleChange}
         />

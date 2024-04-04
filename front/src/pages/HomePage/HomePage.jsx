@@ -1,13 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectArticles } from '../../store/Selectors/articlesSelector';
+import {
+  selectArticles,
+  selectLoading,
+} from '../../store/Selectors/articlesSelector';
 import { useEffect, useState } from 'react';
 import { fetchArticles } from '../../store/slices/ArticlesSlice';
 import MiniatureArticle from '../../components/MiniatureArticle/MiniatureArticle';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.scss';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const articles = useSelector(selectArticles);
+  const navigate = useNavigate();
+  const loading = useSelector(selectLoading);
   const mostPopularArticles = [...articles]
     .slice(0, 6)
     .sort((a, b) => b.likes - a.likes);
@@ -25,21 +31,34 @@ export const HomePage = () => {
 
   return (
     <>
-      <h2 className='accueil__title'>A la une</h2>
-      <div className='display-frame'>
-        {newestArticles.length > 0 &&
-          newestArticles.map((article) => {
-            return <MiniatureArticle key={article._id} article={article} />;
-          })}
-      </div>
-      <h2 className='accueil__title'>Les plus populaires</h2>
-      <div className='display-frame'>
-        {mostPopularArticles.length > 0 &&
-          mostPopularArticles.map((article) => {
-            console.log(article.imageName);
-            return <MiniatureArticle key={article._id} article={article} />;
-          })}
-      </div>
+      {loading ? (
+        <p>Chargement...</p>
+      ) : (
+        <>
+          {' '}
+          <h2 className='accueil__title'>A la une</h2>
+          <div className='display-frame'>
+            {newestArticles.length > 0 &&
+              newestArticles.map((article) => {
+                return <MiniatureArticle key={article._id} article={article} />;
+              })}
+          </div>
+          <h2 className='accueil__title'>Les plus populaires</h2>
+          <div className='display-frame'>
+            {mostPopularArticles.length > 0 &&
+              mostPopularArticles.map((article) => {
+                console.log(article.imageName);
+                return <MiniatureArticle key={article._id} article={article} />;
+              })}
+          </div>
+          <button
+            onClick={() => navigate('/articles')}
+            className='btn--to-articles'
+          >
+            Tous nos articles
+          </button>
+        </>
+      )}
     </>
   );
 };

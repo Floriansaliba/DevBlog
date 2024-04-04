@@ -14,7 +14,6 @@
   }
   &__title {
     overflow-wrap: break-word;
-    word-break: break-all;
     font-size: 35px;
     color: $color-blue;
     letter-spacing: 1px;
@@ -48,7 +47,6 @@
     text-transform: uppercase;
     margin-top: 59px;
     overflow-wrap: break-word;
-    word-break: break-all;
     @include desktop {
       font-size: 33px;
     }
@@ -61,7 +59,6 @@
     line-height: 23px;
     letter-spacing: 1px;
     overflow-wrap: break-word;
-    word-break: break-all;
     @include desktop {
       font-size: 20px;
       margin-top: 53px;

@@ -7,9 +7,10 @@ const initialState = {
   error: null,
   numberOfArticlesPerPage: 14,
   currentPage: 1,
+  sortBy: null,
 };
 
-// Définition de l'action asynchrone pour fetch les artciles
+// Définition de l'action asynchrone pour fetch les articles
 export const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
   async (_, { rejectWithValue }) => {
@@ -33,6 +34,7 @@ const ArticlesSlice = createSlice({
           (a, b) => new Date(b.date) - new Date(a.date)
         );
         state.articles = sortedArticles;
+        state.sortBy = 'newest';
       }
     },
     sortByMostSeen(state) {
@@ -40,6 +42,7 @@ const ArticlesSlice = createSlice({
       if (articles.length > 0) {
         const sortedArticles = articles.sort((a, b) => b.views - a.views);
         state.articles = sortedArticles;
+        state.sortBy = 'views';
       }
     },
     sortByMostLiked(state) {
@@ -47,6 +50,7 @@ const ArticlesSlice = createSlice({
       if (articles.length > 0) {
         const sortedArticles = articles.sort((a, b) => b.likes - a.likes);
         state.articles = sortedArticles;
+        state.sortBy = 'likes';
       }
     },
     goToPage(state, action) {
