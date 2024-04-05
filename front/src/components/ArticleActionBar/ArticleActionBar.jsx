@@ -49,7 +49,8 @@ export const ArticleActionBar = ({ id, date }) => {
         userEmail: user.profil.email,
       })
       .then((response) => {
-        if (response.data === 'Un dislike ajouté') {
+        console.log(response.data);
+        if (response.status === 200) {
           axios
             .get(`http://localhost:3000/articles/${id}/addDislike`)
             .then((response) => {

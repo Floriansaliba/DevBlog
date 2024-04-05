@@ -41,6 +41,7 @@
     font-family: $font-play;
     font-weight: bold;
     margin-bottom: 50px;
+    padding-left: 8px;
     @include desktop {
       height: 64px;
       font-size: 45px;
@@ -113,6 +114,7 @@
   font-family: $font-play;
   font-weight: bold;
   margin-bottom: 10px;
+  padding-left: 8px;
   @include desktop {
     height: 32px;
     border-radius: 8px;
@@ -136,6 +138,7 @@
   border: solid 2px $color-blue;
   font-family: $font-roboto;
   margin-bottom: 10px;
+  padding: 8px;
   @include desktop {
     height: 353px;
     border-radius: 8px;
@@ -161,6 +164,7 @@
   border: solid 2px $color-blue;
   font-family: $font-roboto;
   margin-bottom: 10px;
+  padding: 8px;
   @include desktop {
     height: 353px;
     font-size: 22px;

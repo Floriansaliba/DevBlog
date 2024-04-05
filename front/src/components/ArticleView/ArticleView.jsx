@@ -108,7 +108,7 @@ const ArticleView = ({ id }) => {
         );
       case 'paragraph':
         return (
-          <div key={index}>
+          <div className='article__subtitle-frame' key={index}>
             <p id={element.id} className='article__paragraph'>
               {element.content}
               {pathName === '/nouvel-article' && (
@@ -129,7 +129,7 @@ const ArticleView = ({ id }) => {
                       );
                     }}
                   >
-                    delete
+                    Supprimer
                   </button>{' '}
                 </>
               )}
@@ -166,7 +166,7 @@ const ArticleView = ({ id }) => {
                       );
                     }}
                   >
-                    supprimer
+                    Supprimer
                   </button>
                 </>
               )}
@@ -189,6 +189,7 @@ const ArticleView = ({ id }) => {
             <h1 className='article__title'>
               {id ? selectedArticle.title : newArticle.title}
             </h1>
+
             <img
               className='article__image'
               src={

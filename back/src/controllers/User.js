@@ -373,6 +373,7 @@ class User {
       if (!user.likes.includes(articleId)) {
         user.likes.push(articleId);
         await user.save();
+        console.log('like ajouté');
         return res.status(200).send('Un like ajouté');
       }
     } catch (error) {
@@ -399,6 +400,7 @@ class User {
       if (index > -1) {
         user.likes.splice(index, 1); // Retire l'article des likes
         await user.save();
+        console.log('like retiré');
         return res.status(200).send('Un like retiré');
       } else {
         return res

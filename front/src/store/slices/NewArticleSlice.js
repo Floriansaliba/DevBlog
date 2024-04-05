@@ -19,6 +19,9 @@ const NewArticleSlice = createSlice({
     addImage(state, action) {
       state.newArticle.imageName = action.payload;
     },
+    modifyImage(state, action) {
+      state.articleToModify.imageName = action.payload;
+    },
     addElement(state, action) {
       if (state.articleToModify !== null) {
         state.articleToModify.content.push(action.payload);
@@ -64,6 +67,7 @@ export const {
   saveArticleToModify,
   copyArticleToModifyAsNewArticle,
   modifyElement,
+  modifyImage,
   clearNewArticle,
 } = NewArticleSlice.actions;
 export default NewArticleSlice;

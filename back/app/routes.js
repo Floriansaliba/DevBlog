@@ -7,6 +7,7 @@ const routes = (app) => {
   app.get('/articles/:articleId', new Article().getArticle);
   app.get('/articles/:articleId/addView', new Article().addView);
   app.get('/articles/:articleId/addLike', new Article().addLike);
+  app.get('/articles/:articleId/addDislike', new Article().addDislike);
   app.delete('/articles/:articleId/delete', new Article().deleteArticle);
   app.put('/articles/:articleId/modify', new Article().modifyArticle);
   app.post('/subscribe', new User().subscribe);

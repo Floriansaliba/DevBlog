@@ -7,6 +7,7 @@ import {
   addImage,
   copyArticleToModifyAsNewArticle,
   clearNewArticle,
+  modifyImage,
 } from '../../store/slices/NewArticleSlice';
 import ArticleView from '../ArticleView/ArticleView';
 import { v4 as uuidv4 } from 'uuid';
@@ -18,11 +19,13 @@ import ParagraphCreator from '../ParagraphCreator/ParagraphCreator';
 import SubtitleCreator from '../SubtitleCreator/SubtitleCreator';
 import CodeCreator from '../CodeCreator/CodeCreator';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-// Formulaire permettant de créer un nouvel article, ou de modifier un article existant
-
+// Composant permettant de créer un nouvel article, ou de modifier un article existant ainsi que de prévisualiser ce dernier.
+// Déclenche des 'toast messages' afin de notifier l'administrateur en cas d'erreur ou de succès lors de l'envoi du formulaire
 const NewArticleForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const articleToModify = useSelector(selectArticleToModify);
   const article = useSelector(selectNewArticle);
 
@@ -45,6 +48,22 @@ const NewArticleForm = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     console.log(file);
+    // Lors de la modification d'un article existant
+    if (articleToModify) {
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result;
+          console.log(base64String);
+          dispatch(modifyImage(base64String));
+          setImage(base64String);
+        };
+        reader.readAsDataURL(file);
+      }
+      return;
+    }
+    // Lors de la création d'un nouvel article
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -60,6 +79,34 @@ const NewArticleForm = () => {
   const handleSubmit = async () => {
     // Si l'article est un article à modifier, on le modifie en BDD :
     if (articleToModify) {
+      // Vérification du titre
+      if (!article.title) {
+        toast.error('Veuillez ajouter un titre');
+        return;
+      }
+      // Vérification de l'image
+      if (!article.imageName) {
+        toast.error('Veuillez ajouter une image');
+        return;
+      }
+      // Vérification du contenu de l'article
+      let subtitles = 0;
+      let paragraphs = 0;
+
+      article.content.forEach((el) => {
+        if (el.type === 'subtitle') {
+          subtitles++;
+        }
+        if (el.type === 'paragraph') {
+          paragraphs++;
+        }
+      });
+
+      if (subtitles < 1 || paragraphs < 1) {
+        toast.error('Veuillez ajouter au moins un sous-titre et un paragraphe');
+        return;
+      }
+      // Envoi de la requête
       try {
         const response = await axios.put(
           `http://localhost:3000/articles/${article._id}/modify`,
@@ -68,15 +115,16 @@ const NewArticleForm = () => {
         if (response.status === 200) {
           toast.success('Modification enregistrée !');
           dispatch(clearNewArticle());
+          navigate('/dashboard');
         }
       } catch (err) {
-        console.log(err);
+        toast.error(err.message);
       }
 
       return;
     }
 
-    // Sinon on créé un nouvel article et on l'ajoute en BDD :
+    // Si l'article est un nouvel article:
     try {
       // Vérification du titre
       if (!article.title) {
@@ -119,6 +167,7 @@ const NewArticleForm = () => {
       if (response.status === 201) {
         toast.success('Nouvel article enregistré !');
         dispatch(clearNewArticle());
+        navigate('/dashboard');
       }
     } catch (err) {
       toast.error(err.message);

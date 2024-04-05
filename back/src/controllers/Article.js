@@ -30,6 +30,7 @@ class Article {
       }
       console.log('image validée');
 
+      // Validation du contenu
       if (article.content.length === 0) {
         return res.status(400).send({
           message:
@@ -128,6 +129,24 @@ class Article {
     }
   }
 
+  async addDislike(req, res) {
+    try {
+      const { articleId } = req.params;
+      const article = await NewArticle.findById(articleId);
+      if (!article) {
+        return res.status(404).send('Article non trouvé');
+      }
+      article.likes--;
+      await article.save();
+      res.status(200).send('Un dislike ajouté');
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send(`Une erreur est survenue lors de l'ajout du dislike`);
+    }
+  }
+
   async deleteArticle(req, res) {
     try {
       const { articleId } = req.params;
@@ -144,8 +163,64 @@ class Article {
 
   async modifyArticle(req, res) {
     try {
-      const newArticle = req.body;
+      const newArticle = req.body.article;
       const { articleId } = req.params;
+
+      // Validation du titre
+      if (
+        !newArticle.title ||
+        typeof newArticle.title !== 'string' ||
+        newArticle.title.trim() === ''
+      ) {
+        return res.status(400).send({
+          message: 'Le titre est requis et doit être une chaîne non vide.',
+        });
+      }
+      console.log('titre validé');
+      // Validation de l'image
+      if (
+        !newArticle.imageName ||
+        typeof newArticle.imageName !== 'string' ||
+        newArticle.imageName.trim() === ''
+      ) {
+        return res.status(400).send({
+          message: 'Une image est requise',
+        });
+      }
+      console.log('image validée');
+
+      // Validation du contenu
+      if (newArticle.content.length === 0) {
+        return res.status(400).send({
+          message:
+            "L'article doit contenir au moins un sous-titre et un paragraphe.",
+        });
+      }
+      console.log('contenu validé');
+
+      // Si l'image est en base64 on l'enregistre au format WEBP
+      if (newArticle.imageName.startsWith('data:image/')) {
+        // Enregistrement de l'image au format WEBP
+        const base64Image = newArticle.imageName.replace(
+          /^data:image\/(png|jpeg|webp);base64,/,
+          ''
+        );
+
+        // Renommer l'image au format WEBP
+        const filename = `image-${Date.now()}.webp`;
+        const imagePath = path.join(__dirname, '../../public/images', filename);
+
+        // Enregistrement de l'image
+        if (base64Image) {
+          fs.writeFileSync(imagePath, base64Image, 'base64');
+        }
+        console.log('image enregistrée');
+
+        // La propriété 'imageName' prend le nom de l'image avec le format WEBP
+        newArticle.imageName = filename;
+      }
+
+      // Remplacement de l'article en BDD
       const article = await NewArticle.findByIdAndUpdate(articleId, newArticle);
       if (!article) {
         return res.status(404).send('Article non trouvé');

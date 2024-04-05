@@ -24,9 +24,9 @@ https://www.mongodb.com/cloud/atlas/register
 Après avoir créé votre cluster, créez une 'Database' nommée 'blog'
 A l'intérieur de cette 'Database' créez 2 collections nommées 'articles' et 'users'
 
-Dans le dossier 'back' de ce répertoire, allez dans le fichier .env.example afin de remplacer : <username>, <password>, et <cluster-address> par vos informations d'identification et l'adresse de votre cluster. 
+Dans le dossier 'back' de ce répertoire, allez dans le fichier .env.example afin de remplacer : <username>, <password>, et <cluster-address> par votre nom d'utilisateur et un mot de passe, et l'adresse de votre cluster. 
 
-Ouvrez MongoDB Compass et connectez-vous à votre cluster. 
+Ouvrez MongoDB Compass et connectez-vous à votre cluster afin d'accéder à la 'Database' nommér 'blog'
 
 Dans la collection 'articles', importez le fichier test.articles.json présent dans le dossier bdd_exemple de ce projet. 
 Dans la collection 'users', importez le fichier test.users.json présent dans le dossier bdd_exemple de ce projet. 
@@ -49,15 +49,15 @@ npm run dev
 ```
 
 
-Vous pouvez désormais vous connecter et visualiser les articles de blog avec les profils suivants : 
+Vous pouvez désormais vous connecter et visualiser les articles de blog avec les profils de test suivants : 
 
-Lecteur connecté : 
+Compte lecteur : 
 Marie 
 Blachere
 marie.blachere@gmail.com
 Mot de passe : Marie1857*
 
-Administrateur: 
+Compte Administrateur: 
 Florian 
 Saliba
 florian.saliba@gmail.com
