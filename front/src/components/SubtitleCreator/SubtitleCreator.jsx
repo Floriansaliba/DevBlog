@@ -15,6 +15,7 @@ const SubtitleCreator = ({ setContents, contents, modify, index, type }) => {
         <div className='editor-bloc'>
           <input
             id='input-subtitle'
+            aria-label='sous-titre'
             onChange={(e) =>
               setModifiedTitle({
                 index: index,
@@ -50,6 +51,7 @@ const SubtitleCreator = ({ setContents, contents, modify, index, type }) => {
             }
             type='text'
             name='subtitle'
+            aria-label='sous-titre'
             placeholder='Ajouter un sous-titre'
           />
           <br />

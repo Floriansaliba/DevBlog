@@ -18,6 +18,7 @@ const CodeCreator = ({ setContents, contents, modify, index, type }) => {
           <h2 className='article-form__title'>CODE</h2>
           <textarea
             id='input-code'
+            aria-label='code'
             onChange={(e) =>
               setModifiedCode({
                 index: index,
@@ -46,6 +47,7 @@ const CodeCreator = ({ setContents, contents, modify, index, type }) => {
           <h2 className='article-form__title'>CODE</h2>
           <textarea
             id='input-code'
+            aria-label='code'
             onChange={(e) =>
               setContents({
                 ...contents,

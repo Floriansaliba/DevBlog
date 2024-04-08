@@ -18,6 +18,7 @@ const ParagraphCreator = ({ setContents, contents, modify, index, type }) => {
           <h2 className='article-form__title'>PARAGRAPHE</h2>
           <textarea
             id='input-paragraph'
+            aria-label='paragraphe'
             onChange={(e) =>
               setModifiedParagraph({
                 index: index,
@@ -47,6 +48,7 @@ const ParagraphCreator = ({ setContents, contents, modify, index, type }) => {
           <h2 className='article-form__title'>PARAGRAPHE</h2>
           <textarea
             id='input-paragraph'
+            aria-label='paragraphe'
             onChange={(e) =>
               setContents({
                 ...contents,

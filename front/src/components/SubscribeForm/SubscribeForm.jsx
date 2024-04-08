@@ -52,6 +52,7 @@ const SubscribeForm = () => {
           type='text'
           name='firstName'
           placeholder='Prénom'
+          aria-label='Prénom'
           value={formData.firstName}
           onChange={handleChange}
         />
@@ -59,6 +60,7 @@ const SubscribeForm = () => {
           type='text'
           name='lastName'
           placeholder='Nom'
+          aria-label='Nom'
           value={formData.lastName}
           onChange={handleChange}
         />
@@ -66,6 +68,7 @@ const SubscribeForm = () => {
           type='email'
           name='email'
           placeholder='Email'
+          aria-label='Email'
           value={formData.email}
           onChange={handleChange}
         />
@@ -73,6 +76,7 @@ const SubscribeForm = () => {
           type='password'
           name='password'
           placeholder='Mot de passe'
+          aria-label='Mot de passe'
           value={formData.password}
           onChange={handleChange}
         />

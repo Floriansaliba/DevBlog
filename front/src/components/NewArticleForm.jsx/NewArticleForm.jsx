@@ -215,6 +215,7 @@ const NewArticleForm = () => {
             onChange={(e) => dispatch(addTitle(e.target.value))}
             type='text'
             name='title'
+            aria-label="Titre de l'article"
             value={article.title}
           />
           <h2 className='article-form__title'>IMAGE :</h2>
@@ -223,6 +224,7 @@ const NewArticleForm = () => {
             id='fileInput'
             onChange={handleImageChange}
             type='file'
+            aria-label='Ajouter une image'
             accept='image/*'
             name='image'
           />

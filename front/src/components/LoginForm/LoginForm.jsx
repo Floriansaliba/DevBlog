@@ -66,6 +66,7 @@ const LoginForm = () => {
           type='email'
           name='email'
           placeholder='Email'
+          aria-label='Adresse e-mail'
           value={formData.email}
           onChange={handleChange}
         />
@@ -73,6 +74,7 @@ const LoginForm = () => {
           type='password'
           name='password'
           placeholder='Mot de passe'
+          aria-label='Mot de passe'
           value={formData.password}
           onChange={handleChange}
         />
