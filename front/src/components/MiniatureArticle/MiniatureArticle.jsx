@@ -82,7 +82,13 @@ const MiniatureArticle = ({
   };
 
   return (
-    <div className='miniature-article' id={articleKey} onClick={handleClick}>
+    <div
+      className='miniature-article'
+      id={articleKey}
+      onClick={handleClick}
+      role='button'
+      tabIndex='0'
+    >
       {deleteFromPreferencesButton && (
         <button
           className='delete-button'

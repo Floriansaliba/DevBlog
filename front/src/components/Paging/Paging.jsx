@@ -28,6 +28,8 @@ const Paging = () => {
             }}
             className={`page-number ${pageNumber === i + 1 ? 'active' : ''}`}
             key={i}
+            role='button'
+            tabIndex='0'
           >
             {i + 1}
           </li>
