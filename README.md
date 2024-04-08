@@ -6,8 +6,7 @@ Un blog destiné aux développeurs web !
 
 Node.js 
 npm
-Nodemon 
-MongoDB Compass
+un client mongoDB
 
 
 ## Installation 
@@ -18,6 +17,10 @@ Clonez ce répertoire sur votre IDE préféré et placez-vous dans le dossier à
 
 ### Préparer la base de données 
 
+Créez votre serveur mongoDB. 
+
+Si vous utilisez mongoDB Atlas, voici les étapes à suivre: 
+
 Si ce n'est pas déjà fait, créez votre compte sur MongoDB Atlas :
 https://www.mongodb.com/cloud/atlas/register
 
@@ -26,17 +29,24 @@ A l'intérieur de cette 'Database' créez 2 collections nommées 'articles' et '
 
 Dans le dossier 'back' de ce répertoire, allez dans le fichier .env.example afin de remplacer : <username>, <password>, et <cluster-address> par votre nom d'utilisateur et un mot de passe, et l'adresse de votre cluster. 
 
-Ouvrez MongoDB Compass et connectez-vous à votre cluster afin d'accéder à la 'Database' nommér 'blog'
+Ouvrez MongoDB Compass et connectez-vous à votre cluster afin d'accéder à la 'Database' nommée 'blog'
 
-Dans la collection 'articles', importez le fichier test.articles.json présent dans le dossier bdd_exemple de ce projet. 
-Dans la collection 'users', importez le fichier test.users.json présent dans le dossier bdd_exemple de ce projet. 
+Dans la collection 'articles', importez le fichier blog.articles.json présent dans le dossier example.collections de ce projet. 
+Dans la collection 'users', importez le fichier blog.users.json présent dans le dossier example.collections de ce projet. 
 
 ### Lancer le backend 
 
 ```bash
 cd back
 npm install
-nodemon server.js
+npm start 
+```
+
+ou en mode développement (nécessite nodemon): 
+```bash
+cd back
+npm install
+npm run dev
 ```
 
 ### Lancer le frontend 
@@ -52,10 +62,10 @@ npm run dev
 Vous pouvez désormais vous connecter et visualiser les articles de blog avec les profils de test suivants : 
 
 Compte lecteur : 
-Marie 
-Blachere
-marie.blachere@gmail.com
-Mot de passe : Marie1857*
+Zinedine
+Zidane
+zidane@gmail.com
+Mot de passe : 12345678
 
 Compte Administrateur: 
 Florian 

@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "6613e8de0269ac3f51fc7a32"
+  },
+  "role": [
+    "admin"
+  ],
+  "preferences": [],
+  "likes": [],
+  "lastName": "saliba",
+  "firstName": "florian",
+  "email": "florian.saliba@gmail.com",
+  "password": "$2a$10$6Z35jWmHWXTvEJKKs9npAuI.nnDSdpuZU83v9bzwFmjuViNAyI08S",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6613e9290269ac3f51fc7a35"
+  },
+  "role": [],
+  "preferences": [],
+  "likes": [],
+  "lastName": "zidane",
+  "firstName": "zinedine",
+  "email": "zidane@gmail.com",
+  "password": "$2a$10$n/7iMIRsgGvo/McWzYHKlOIAhC/L281lgEqDckiOd97398n3PThvO",
+  "__v": 0
+}]
