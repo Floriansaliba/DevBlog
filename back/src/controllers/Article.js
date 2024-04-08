@@ -6,7 +6,7 @@ class Article {
   async postArticle(req, res) {
     try {
       const article = req.body;
-
+      console.log(article);
       // Validation du titre
       if (
         !article.title ||
@@ -59,7 +59,7 @@ class Article {
       newArticle.title = article.title;
       newArticle.imageName = filename;
       newArticle.date = new Date();
-      newArticle.content = article.elements;
+      newArticle.content = article.content;
       newArticle.likes = 0;
       newArticle.views = 0;
       await newArticle.save();

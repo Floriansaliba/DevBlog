@@ -1,25 +1,27 @@
 import { useState } from 'react';
 import Navigation from '../Navigation/Navigation';
 import './MenuDesktop.scss';
+import { useNavigate } from 'react-router-dom';
 
+/**
+ * Affiche le menu au format desktop
+ */
 const MenuDesktop = () => {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  /**
-   * This function toggles the menu open and closed.
-   */
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
   return (
     <div id='menu'>
-      <a className='menu-links' href='/'>
+      <div className='menu-links' onClick={() => navigate('/')}>
         Accueil
-      </a>
-      <a className='menu-links' href='/articles'>
+      </div>
+      <div className='menu-links' onClick={() => navigate('/articles')}>
         Articles
-      </a>
+      </div>
       <svg
         onClick={() => {
           toggleMenu();

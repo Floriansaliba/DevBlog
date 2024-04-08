@@ -3,6 +3,11 @@ import { addElement, modifyElement } from '../../store/slices/NewArticleSlice';
 import { useDispatch } from 'react-redux';
 
 // eslint-disable-next-line react/prop-types
+
+/**
+ *
+ *Affiche le bloc de création d'un paragraphe d'article, pour l'administrateur
+ */
 const ParagraphCreator = ({ setContents, contents, modify, index, type }) => {
   const dispatch = useDispatch();
   const [modifiedParagraph, setModifiedParagraph] = useState(null);

@@ -16,6 +16,11 @@ import SubtitleCreator from '../SubtitleCreator/SubtitleCreator';
 import { useLocation } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
+
+/**
+ *
+ * Gère la vue d'un nouvel article ou d'un article existant (possédant un id)
+ */
 const ArticleView = ({ id }) => {
   const articleToModify = useSelector(selectArticleToModify);
   const [selectedArticle, setSelectedArticle] = useState(null);
@@ -52,6 +57,7 @@ const ArticleView = ({ id }) => {
   }, [id]);
 
   useEffect(() => {
+    // highlight du code
     const highlightCode = () => {
       const nodes = document.querySelectorAll('pre code');
       nodes.forEach((node) => hljs.highlightElement(node));
@@ -67,6 +73,7 @@ const ArticleView = ({ id }) => {
     setEditingIndex(index);
   };
 
+  // Affiche tous le contenu de l'article (sous-titres, paragraphe, et bloc de code) en fonction du type d'élément à afficher
   const renderArticleElement = (element, index) => {
     switch (element.type) {
       case 'subtitle':

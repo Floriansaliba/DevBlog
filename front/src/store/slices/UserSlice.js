@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Slice permettant de gérer le state de l'utilisateur
+
 const initialState = JSON.parse(localStorage.getItem('user')) || {
   user: { connected: false, isAdmin: false },
 };

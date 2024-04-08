@@ -5,6 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
+
+/**
+ *
+ * Vérifie si l'utilisateur est administrateur ou non, afin d'acceder ou non aux routes protegées
+ * Redirige vers la page d'accueil si l'utilisateur n'est pas authorisé
+ */
 const ProtectedRoute = ({ children }) => {
   const userEmail = useSelector(selectUser)?.profil?.email;
   const token = localStorage.getItem('token');

@@ -41,6 +41,9 @@ const ArticlesPage = () => {
         <>
           <section id='articles'>
             <div className='display-frame'>
+              {articlesToShow.length === 0 && (
+                <p>Aucun article à afficher pour le moment</p>
+              )}
               {articlesToShow.length > 0 &&
                 articlesToShow.map((article) => {
                   return (

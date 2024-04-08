@@ -4,6 +4,7 @@ import './MenuMobile.scss';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/Selectors/userSelectors';
 
+// Affiche le menu au format mobile
 const MenuMobile = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const user = useSelector(selectUser);

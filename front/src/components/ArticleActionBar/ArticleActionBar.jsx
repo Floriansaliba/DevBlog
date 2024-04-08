@@ -6,6 +6,10 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
+
+/**
+ * Bar d'action permettant au lecteur connecté de liker/Disliker ou enregistrer un article dans ses préférences
+ */
 export const ArticleActionBar = ({ id, date }) => {
   const [isLiked, setIsliked] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -17,6 +21,7 @@ export const ArticleActionBar = ({ id, date }) => {
   const month = (articleDate.getMonth() + 1).toString().padStart(2, '0');
   const year = articleDate.getFullYear();
 
+  // Gestion du like du lecteur
   const handleLikeClick = () => {
     axios
       .put('http://localhost:3000/user/addLike', {
@@ -42,6 +47,7 @@ export const ArticleActionBar = ({ id, date }) => {
       });
   };
 
+  // Gestion du dislike du lecteur
   const handleDislikeClick = () => {
     axios
       .put('http://localhost:3000/user/dislike', {
@@ -65,6 +71,7 @@ export const ArticleActionBar = ({ id, date }) => {
       });
   };
 
+  // Gestion de l'enregistrement d'un article dans le préférences du lecteur
   const handleBookmarkClick = () => {
     axios
       .post('http://localhost:3000/saveArticle', {
@@ -93,6 +100,7 @@ export const ArticleActionBar = ({ id, date }) => {
           {' '}
           {isLiked ? (
             <svg
+              aria-label="Ne plus aimer l'article"
               onClick={handleDislikeClick}
               className='heart'
               xmlns='http://www.w3.org/2000/svg'
@@ -102,6 +110,7 @@ export const ArticleActionBar = ({ id, date }) => {
             </svg>
           ) : (
             <svg
+              aria-label="Aimer l'article"
               onClick={handleLikeClick}
               className='heart'
               xmlns='http://www.w3.org/2000/svg'

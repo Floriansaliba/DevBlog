@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import MySelectionPage from './pages/MySelectionPage/MySelectionPage';
 
+// Affiche le Header, le composant permettant de déclencher des toast messages auprès de l'utilisateur, et les pages selon la route concernée
 function App() {
   return (
     <>

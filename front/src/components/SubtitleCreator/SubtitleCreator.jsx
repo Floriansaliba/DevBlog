@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 import { addElement, modifyElement } from '../../store/slices/NewArticleSlice';
 import { useState } from 'react';
 
+/*
+Affiche le bloc de création d'un sous-titre d'article pour l'administrateur
+*/
 const SubtitleCreator = ({ setContents, contents, modify, index, type }) => {
   const dispatch = useDispatch();
   const [modifiedTitle, setModifiedTitle] = useState(null);

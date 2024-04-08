@@ -3,6 +3,11 @@ import { addElement, modifyElement } from '../../store/slices/NewArticleSlice';
 import { useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
+
+/**
+ *
+ * Affiche le texteArea permettant à l'admin d'insdérer du code dans son article
+ */
 const CodeCreator = ({ setContents, contents, modify, index, type }) => {
   const dispatch = useDispatch();
   const [modifiedCode, setModifiedCode] = useState(null);

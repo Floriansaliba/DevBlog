@@ -49,7 +49,7 @@ const NewArticleForm = () => {
     const file = e.target.files[0];
     console.log(file);
     // Lors de la modification d'un article existant
-    if (articleToModify) {
+    if (articleToModify !== null) {
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -78,7 +78,7 @@ const NewArticleForm = () => {
 
   const handleSubmit = async () => {
     // Si l'article est un article à modifier, on le modifie en BDD :
-    if (articleToModify) {
+    if (articleToModify !== null) {
       // Vérification du titre
       if (!article.title) {
         toast.error('Veuillez ajouter un titre');
@@ -92,6 +92,7 @@ const NewArticleForm = () => {
       // Vérification du contenu de l'article
       let subtitles = 0;
       let paragraphs = 0;
+      console.log(article.content);
 
       article.content.forEach((el) => {
         if (el.type === 'subtitle') {
@@ -139,7 +140,7 @@ const NewArticleForm = () => {
       // Vérification du contenu de l'article
       let subtitles = 0;
       let paragraphs = 0;
-
+      console.log(article.content);
       article.content.forEach((el) => {
         if (el.type === 'subtitle') {
           subtitles++;
@@ -148,6 +149,7 @@ const NewArticleForm = () => {
           paragraphs++;
         }
       });
+      console.log(subtitles, paragraphs);
 
       if (subtitles < 1 || paragraphs < 1) {
         toast.error('Veuillez ajouter au moins un sous-titre et un paragraphe');

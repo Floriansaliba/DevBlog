@@ -5,14 +5,10 @@ import logo from './../../assets/images/logo.png';
 import { useEffect, useState } from 'react';
 import MenuMobile from '../MenuMobile/MenuMobile';
 import MenuDesktop from '../MenuDesktop/MenuDesktop';
-import { selectUser } from '../../store/Selectors/userSelectors';
-import { useSelector } from 'react-redux';
 
+// Gère l'affichage du header selon la taille de l'écran
 const Header = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const user = useSelector(selectUser);
-  const { connected, isAdmin } = user;
-  console.log(connected, isAdmin);
 
   useEffect(() => {
     /**

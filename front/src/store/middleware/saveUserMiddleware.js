@@ -1,3 +1,5 @@
+// Middleware permettant de sauvegarder l'utilisateur dans le localStorage afin d'assurer la persistence de ses informations
+
 const saveUserMiddleware = (store) => (next) => (action) => {
   next(action);
   if (action.type === 'user/connectUser') {

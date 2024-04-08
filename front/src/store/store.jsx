@@ -5,7 +5,7 @@ import ArticlesSlice from './slices/ArticlesSlice';
 import saveUserMiddleware from './middleware/saveUserMiddleware';
 import saveArticlesMiddleware from './middleware/saveArticlesMiddleware';
 
-console.log(UserSlice);
+// Store Redux permettant de gérer l'ensemble du state de l'application
 
 const store = configureStore({
   reducer: {

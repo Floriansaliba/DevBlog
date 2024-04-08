@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+/*
+Le slice de Redux permettant de gérer le state des articles 
+*/
+
 const initialState = {
   articles: [],
   loading: false,

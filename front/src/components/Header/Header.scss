@@ -11,3 +11,9 @@
   margin-bottom: 24px;
   background-color: white;
 }
+
+#logo {
+  @include desktop {
+    width: 100px;
+  }
+}

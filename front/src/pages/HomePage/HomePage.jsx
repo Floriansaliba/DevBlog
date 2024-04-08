@@ -27,8 +27,6 @@ export const HomePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(articles);
-
   return (
     <>
       {loading ? (
@@ -38,17 +36,34 @@ export const HomePage = () => {
           {' '}
           <h2 className='accueil__title'>A la une</h2>
           <div className='display-frame'>
+            {newestArticles.length === 0 && (
+              <p>Aucun article à afficher pour le moment</p>
+            )}
             {newestArticles.length > 0 &&
               newestArticles.map((article) => {
-                return <MiniatureArticle key={article._id} article={article} />;
+                return (
+                  <MiniatureArticle
+                    key={`newest-${article._id}`}
+                    articleKey={`newest-${article._id}`}
+                    article={article}
+                  />
+                );
               })}
           </div>
           <h2 className='accueil__title'>Les plus populaires</h2>
           <div className='display-frame'>
+            {mostPopularArticles.length === 0 && (
+              <p>Aucun article à afficher pour le moment</p>
+            )}
             {mostPopularArticles.length > 0 &&
               mostPopularArticles.map((article) => {
-                console.log(article.imageName);
-                return <MiniatureArticle key={article._id} article={article} />;
+                return (
+                  <MiniatureArticle
+                    key={`popular-${article._id}`}
+                    articleKey={`popular-${article._id}`}
+                    article={article}
+                  />
+                );
               })}
           </div>
           <button

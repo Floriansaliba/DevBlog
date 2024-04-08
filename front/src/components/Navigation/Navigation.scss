@@ -8,7 +8,7 @@
   background-color: white;
   border-bottom-left-radius: 26px;
   @include desktop {
-    top: 199px;
+    top: 124px;
     border-bottom-left-radius: 64px;
   }
   & > ul {
@@ -40,6 +40,7 @@
       }
 
       &:hover {
+        cursor: pointer;
         background-color: $color-blue;
         color: white;
         & > svg {

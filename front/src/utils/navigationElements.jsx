@@ -1,3 +1,4 @@
+// Tableau des elements de navigation du blog
 export const navigationElements = [
   {
     name: 'Accueil',

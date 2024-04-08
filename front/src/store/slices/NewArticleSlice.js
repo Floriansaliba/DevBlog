@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/*
+Le slice de Redux permettant de gérer le state d'un nouvel article ou d'un article en cours de modification
+*/
+
 const initialState = {
   newArticle: { title: '', imageName: '', content: [] },
   articleToModify: null,

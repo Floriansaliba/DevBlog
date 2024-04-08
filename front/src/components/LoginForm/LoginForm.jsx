@@ -5,6 +5,9 @@ import { connectUser } from '../../store/slices/UserSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
+/*
+ * Formulaire permettant la connexion d'un lecteur (ou administrateur) ayant déjà créé son compte
+ */
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -4,6 +4,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
+/*
+Formulaire d'inscription d'un lecteur (via son email, son nom et son mot de passe)
+*/
 const SubscribeForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({

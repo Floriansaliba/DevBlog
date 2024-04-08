@@ -7,6 +7,7 @@ import {
 } from '../../store/slices/ArticlesSlice';
 import { sortArticlesBy } from '../../store/Selectors/articlesSelector';
 
+// Affiche la barre de trie des articles, et dispatch les actions de trie des articles en fonction du choix du lecteur
 const SortArticles = () => {
   const sortBy = useSelector(sortArticlesBy);
   const dispatch = useDispatch();

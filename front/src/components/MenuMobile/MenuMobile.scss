@@ -15,6 +15,7 @@
   padding: 20px 20px;
   margin: 0px 16px;
   &:hover {
+    cursor: pointer;
     color: white;
     background-color: $color-blue;
     border-radius: 47px;

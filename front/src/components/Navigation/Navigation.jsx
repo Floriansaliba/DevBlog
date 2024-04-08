@@ -8,6 +8,7 @@ import { disconnectUser } from '../../store/slices/UserSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+// Gère l'affichage de la navigation du blog en fonction de la taille d'écran
 const Navigation = ({ menuOpen }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ const Navigation = ({ menuOpen }) => {
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
-      console.log(screenWidth);
     };
 
     window.addEventListener('resize', handleResize);
@@ -50,12 +50,10 @@ const Navigation = ({ menuOpen }) => {
                       !element.displayIf.includes('mobile')
                   )
                   .map((element, index) => (
-                    <a key={index} href={element.linkTo}>
-                      <li>
-                        <span>{element.name.toUpperCase()}</span>
-                        {element.logo}
-                      </li>
-                    </a>
+                    <li key={index} onClick={() => navigate(element.linkTo)}>
+                      <span>{element.name.toUpperCase()}</span>
+                      {element.logo}
+                    </li>
                   ))
               : connected && isAdmin
               ? navigationElements
@@ -66,24 +64,20 @@ const Navigation = ({ menuOpen }) => {
                       !element.displayIf.includes('mobile')
                   )
                   .map((element, index) => (
-                    <a key={index} href={element.linkTo}>
-                      <li>
-                        <span>{element.name.toUpperCase()}</span>
-                        {element.logo}
-                      </li>
-                    </a>
+                    <li key={index} onClick={() => navigate(element.linkTo)}>
+                      <span>{element.name.toUpperCase()}</span>
+                      {element.logo}
+                    </li>
                   ))
               : navigationElements
                   .filter((element) =>
                     element.displayIf.includes('disconnected')
                   )
                   .map((element, index) => (
-                    <a key={index} href={element.linkTo}>
-                      <li>
-                        <span>{element.name.toUpperCase()}</span>
-                        {element.logo}
-                      </li>
-                    </a>
+                    <li key={index} onClick={() => navigate(element.linkTo)}>
+                      <span>{element.name.toUpperCase()}</span>
+                      {element.logo}
+                    </li>
                   ))}
             {userIslogged && (
               <li onClick={logout} style={{ cursor: 'pointer' }}>
@@ -106,12 +100,10 @@ const Navigation = ({ menuOpen }) => {
                       element.displayIf.includes('reader')
                   )
                   .map((element, index) => (
-                    <a key={index} href={element.linkTo}>
-                      <li>
-                        <span>{element.name.toUpperCase()}</span>
-                        {element.logo}
-                      </li>
-                    </a>
+                    <li key={index} onClick={() => navigate(element.linkTo)}>
+                      <span>{element.name.toUpperCase()}</span>
+                      {element.logo}
+                    </li>
                   ))
               : connected && isAdmin
               ? navigationElements
@@ -121,24 +113,20 @@ const Navigation = ({ menuOpen }) => {
                       element.displayIf.includes('admin')
                   )
                   .map((element, index) => (
-                    <a key={index} href={element.linkTo}>
-                      <li>
-                        <span>{element.name.toUpperCase()}</span>
-                        {element.logo}
-                      </li>
-                    </a>
+                    <li key={index} onClick={() => navigate(element.linkTo)}>
+                      <span>{element.name.toUpperCase()}</span>
+                      {element.logo}
+                    </li>
                   ))
               : navigationElements
                   .filter((element) =>
                     element.displayIf.includes('disconnected')
                   )
                   .map((element, index) => (
-                    <a key={index} href={element.linkTo}>
-                      <li>
-                        <span>{element.name.toUpperCase()}</span>
-                        {element.logo}
-                      </li>
-                    </a>
+                    <li key={index} onClick={() => navigate(element.linkTo)}>
+                      <span>{element.name.toUpperCase()}</span>
+                      {element.logo}
+                    </li>
                   ))}
             {userIslogged && (
               <li onClick={logout} style={{ cursor: 'pointer' }}>

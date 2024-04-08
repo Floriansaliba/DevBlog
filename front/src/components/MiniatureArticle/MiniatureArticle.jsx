@@ -8,10 +8,12 @@ import axios from 'axios';
 import { saveArticleToModify } from '../../store/slices/NewArticleSlice';
 import { useEffect } from 'react';
 
+// Gère l'affichage de la miniature d'un article
 const MiniatureArticle = ({
   article,
   adminView = false,
   deleteFromPreferencesButton = false,
+  articleKey,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -79,12 +81,8 @@ const MiniatureArticle = ({
     navigate('/nouvel-article');
   };
 
-  useEffect(() => {
-    console.log(adminView);
-  }, []);
-
   return (
-    <div className='miniature-article' id={_id} onClick={handleClick}>
+    <div className='miniature-article' id={articleKey} onClick={handleClick}>
       {deleteFromPreferencesButton && (
         <button
           className='delete-button'

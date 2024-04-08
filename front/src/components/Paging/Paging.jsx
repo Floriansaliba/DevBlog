@@ -7,6 +7,10 @@ import {
 } from '../../store/Selectors/articlesSelector';
 import { goToPage } from '../../store/slices/ArticlesSlice';
 // eslint-disable-next-line react/prop-types
+
+/*
+ * Affiche la pagination en fonction du nombre d'articles à afficher
+ */
 const Paging = () => {
   const dispatch = useDispatch();
   const totalOfArticles = useSelector(selectArticles).length;
