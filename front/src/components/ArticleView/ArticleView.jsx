@@ -40,7 +40,6 @@ const ArticleView = ({ id }) => {
         );
         if (response.status === 200) {
           setSelectedArticle(response.data.article);
-          console.log(response.data.article);
           setLoading(false);
         }
       } catch (err) {

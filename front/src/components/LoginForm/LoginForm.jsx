@@ -37,11 +37,9 @@ const LoginForm = () => {
           dispatch(connectUser(res.data.user));
           // On vérifie si le user est admin ou non afin de mettre à jour la variable isAdmin de Redux
           // On enregistrer
-          console.log(res.data.user);
           toast.success('Connexion réussie');
           navigate('/');
         }
-        console.log(res);
       })
       .catch((error) => {
         if (

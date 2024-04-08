@@ -45,7 +45,7 @@ class User {
       const existingUser = await NewUser.findOne({
         email: email.toLowerCase().trim(),
       });
-      console.log(existingUser);
+
       if (existingUser) {
         errors.push('Cet email est déjà utilisé');
       }
@@ -101,7 +101,7 @@ class User {
 
     try {
       const user = await NewUser.findOne({ email: email });
-      console.log(user);
+
       if (!user) {
         errors.push('Utilisateur non reconnu ou mot de passe incorrect.');
         return res.status(401).send({ errors });
@@ -147,7 +147,7 @@ class User {
 
       // Vérifier les informations du token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decoded);
+
       if (!decoded || decoded.email !== user.email) {
         return res.status(401).send('Token invalide');
       } else if (!decoded.role.includes('admin')) {
@@ -187,7 +187,6 @@ class User {
   updateUser = async (req, res) => {
     try {
       const { currentEmail, firstName, lastName, email, password } = req.body;
-      console.log(req.body);
 
       // Début de la validation des données
       const errors = [];
@@ -373,7 +372,6 @@ class User {
       if (!user.likes.includes(articleId)) {
         user.likes.push(articleId);
         await user.save();
-        console.log('like ajouté');
         return res.status(200).send('Un like ajouté');
       }
     } catch (error) {
@@ -400,7 +398,6 @@ class User {
       if (index > -1) {
         user.likes.splice(index, 1); // Retire l'article des likes
         await user.save();
-        console.log('like retiré');
         return res.status(200).send('Un like retiré');
       } else {
         return res

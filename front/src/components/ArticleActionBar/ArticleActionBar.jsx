@@ -23,6 +23,7 @@ export const ArticleActionBar = ({ id, date }) => {
 
   // Gestion du like du lecteur
   const handleLikeClick = () => {
+    // Ajout de l'article en préférences de l'utilisateur
     axios
       .put('http://localhost:3000/user/addLike', {
         articleId: id,
@@ -30,12 +31,14 @@ export const ArticleActionBar = ({ id, date }) => {
       })
       .then((response) => {
         if (response.data === 'Un like ajouté') {
+          // Ajout d'un like dans l'article en base de données
           axios
             .get(`http://localhost:3000/articles/${id}/addLike`)
             .then((response) => {
-              console.log(response.data);
-              setIsliked(true);
-              toast.success('Merci pour votre soutien !');
+              if (response.status === 200) {
+                setIsliked(true);
+                toast.success('Merci pour votre soutien !');
+              }
             })
             .catch((err) => {
               console.log(err);
@@ -55,7 +58,6 @@ export const ArticleActionBar = ({ id, date }) => {
         userEmail: user.profil.email,
       })
       .then((response) => {
-        console.log(response.data);
         if (response.status === 200) {
           axios
             .get(`http://localhost:3000/articles/${id}/addDislike`)
@@ -79,7 +81,6 @@ export const ArticleActionBar = ({ id, date }) => {
         articleId: id,
       })
       .then((response) => {
-        console.log(response.data);
         if (response.data === 'Article sauvegardé') {
           toast.success(response.data);
         } else {

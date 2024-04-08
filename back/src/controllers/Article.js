@@ -6,7 +6,6 @@ class Article {
   async postArticle(req, res) {
     try {
       const article = req.body;
-      console.log(article);
       // Validation du titre
       if (
         !article.title ||
@@ -17,7 +16,7 @@ class Article {
           message: 'Le titre est requis et doit être une chaîne non vide.',
         });
       }
-      console.log('titre validé');
+
       // Validation de l'image
       if (
         !article.imageName ||
@@ -28,7 +27,6 @@ class Article {
           message: 'Une image est requise',
         });
       }
-      console.log('image validée');
 
       // Validation du contenu
       if (article.content.length === 0) {
@@ -37,7 +35,6 @@ class Article {
             "L'article doit contenir au moins un sous-titre et un paragraphe.",
         });
       }
-      console.log('contenu validé');
 
       // Enregistrement de l'image au format WEBP
       const base64Image = article.imageName.replace(
@@ -51,7 +48,6 @@ class Article {
       if (base64Image) {
         fs.writeFileSync(imagePath, base64Image, 'base64');
       }
-      console.log('image enregistrée');
 
       // Enregistrement de l'article en BDD
 
@@ -63,8 +59,6 @@ class Article {
       newArticle.likes = 0;
       newArticle.views = 0;
       await newArticle.save();
-
-      console.log('article enregistré !!');
 
       res.status(201).send('Article posted successfully');
     } catch (error) {
@@ -176,7 +170,7 @@ class Article {
           message: 'Le titre est requis et doit être une chaîne non vide.',
         });
       }
-      console.log('titre validé');
+
       // Validation de l'image
       if (
         !newArticle.imageName ||
@@ -187,7 +181,6 @@ class Article {
           message: 'Une image est requise',
         });
       }
-      console.log('image validée');
 
       // Validation du contenu
       if (newArticle.content.length === 0) {
@@ -196,7 +189,6 @@ class Article {
             "L'article doit contenir au moins un sous-titre et un paragraphe.",
         });
       }
-      console.log('contenu validé');
 
       // Si l'image est en base64 on l'enregistre au format WEBP
       if (newArticle.imageName.startsWith('data:image/')) {
@@ -214,7 +206,6 @@ class Article {
         if (base64Image) {
           fs.writeFileSync(imagePath, base64Image, 'base64');
         }
-        console.log('image enregistrée');
 
         // La propriété 'imageName' prend le nom de l'image avec le format WEBP
         newArticle.imageName = filename;

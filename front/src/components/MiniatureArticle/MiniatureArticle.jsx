@@ -55,7 +55,6 @@ const MiniatureArticle = ({
 
   const deleteArticleFromUserPreferences = (e) => {
     e.stopPropagation();
-    console.log(userEmail, _id);
     if (window.confirm('Validez-vous la suppression de cet article?')) {
       axios
         .delete('http://localhost:3000/user/preferences/deleteArticle', {

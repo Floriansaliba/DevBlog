@@ -47,14 +47,12 @@ const NewArticleForm = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     // Lors de la modification d'un article existant
     if (articleToModify !== null) {
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
           const base64String = reader.result;
-          console.log(base64String);
           dispatch(modifyImage(base64String));
           setImage(base64String);
         };
@@ -68,7 +66,6 @@ const NewArticleForm = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result;
-        console.log(base64String);
         dispatch(addImage(base64String));
         setImage(base64String);
       };
@@ -92,7 +89,6 @@ const NewArticleForm = () => {
       // Vérification du contenu de l'article
       let subtitles = 0;
       let paragraphs = 0;
-      console.log(article.content);
 
       article.content.forEach((el) => {
         if (el.type === 'subtitle') {
@@ -140,7 +136,6 @@ const NewArticleForm = () => {
       // Vérification du contenu de l'article
       let subtitles = 0;
       let paragraphs = 0;
-      console.log(article.content);
       article.content.forEach((el) => {
         if (el.type === 'subtitle') {
           subtitles++;
@@ -149,7 +144,6 @@ const NewArticleForm = () => {
           paragraphs++;
         }
       });
-      console.log(subtitles, paragraphs);
 
       if (subtitles < 1 || paragraphs < 1) {
         toast.error('Veuillez ajouter au moins un sous-titre et un paragraphe');
@@ -161,7 +155,6 @@ const NewArticleForm = () => {
         'http://localhost:3000/new-article',
         article
       );
-      console.log(response.status);
       if (response.status === 400) {
         toast.error(response.data.message);
         return;

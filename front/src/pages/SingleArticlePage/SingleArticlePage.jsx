@@ -14,7 +14,9 @@ const SingleArticlePage = () => {
       axios
         .get(`http://localhost:3000/articles/${id}/addView`)
         .then((response) => {
-          console.log(response.data);
+          if (response.status === 200) {
+            console.log('Une vue a été ajoutée');
+          }
         })
         .catch((err) => {
           console.log(err);

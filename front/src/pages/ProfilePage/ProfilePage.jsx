@@ -68,7 +68,6 @@ const ProfilePage = () => {
       currentEmail: user.email,
       password: password,
     };
-    console.log(request);
     try {
       const response = await axios.put(
         'http://localhost:3000/user/update',
