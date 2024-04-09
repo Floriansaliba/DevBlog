@@ -12,7 +12,6 @@ un client mongoDB
 ## Installation 
 
 
-
 Clonez ce répertoire sur votre IDE préféré et placez-vous dans le dossier à l'aide de votre terminal.
 
 ### Préparer la base de données 
@@ -27,7 +26,8 @@ https://www.mongodb.com/cloud/atlas/register
 Après avoir créé votre cluster, créez une 'Database' nommée 'blog'
 A l'intérieur de cette 'Database' créez 2 collections nommées 'articles' et 'users'
 
-Dans le dossier 'back' de ce répertoire, allez dans le fichier .env.example afin de remplacer : <username>, <password>, et <cluster-address> par votre nom d'utilisateur et un mot de passe, et l'adresse de votre cluster. 
+Dans le dossier 'back' de ce répertoire, allez dans le fichier .env.example afin de remplacer : &lt;username&gt;, &lt;password&gt;, et &lt;cluster-address&gt; par votre nom d'utilisateur et un mot de passe, et l'adresse de votre cluster.
+
 
 Ouvrez MongoDB Compass et connectez-vous à votre cluster afin d'accéder à la 'Database' nommée 'blog'
 
