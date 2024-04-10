@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useSelector } from 'react-redux';
 import './ArticleActionBar.scss';
 import { selectUser } from '../../store/Selectors/userSelectors';
@@ -25,15 +26,27 @@ export const ArticleActionBar = ({ id, date }) => {
   const handleLikeClick = () => {
     // Ajout de l'article en préférences de l'utilisateur
     axios
-      .put('http://localhost:3000/user/addLike', {
-        articleId: id,
-        userEmail: user.profil.email,
-      })
+      .put(
+        'http://localhost:3000/user/addLike',
+        {
+          articleId: id,
+          userEmail: user.profil.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      )
       .then((response) => {
         if (response.data === 'Un like ajouté') {
           // Ajout d'un like dans l'article en base de données
           axios
-            .get(`http://localhost:3000/articles/${id}/addLike`)
+            .get(`http://localhost:3000/articles/${id}/addLike`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            })
             .then((response) => {
               if (response.status === 200) {
                 setIsliked(true);
@@ -53,14 +66,26 @@ export const ArticleActionBar = ({ id, date }) => {
   // Gestion du dislike du lecteur
   const handleDislikeClick = () => {
     axios
-      .put('http://localhost:3000/user/dislike', {
-        articleId: id,
-        userEmail: user.profil.email,
-      })
+      .put(
+        'http://localhost:3000/user/dislike',
+        {
+          articleId: id,
+          userEmail: user.profil.email,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      )
       .then((response) => {
         if (response.status === 200) {
           axios
-            .get(`http://localhost:3000/articles/${id}/addDislike`)
+            .get(`http://localhost:3000/articles/${id}/addDislike`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            })
             .then((response) => {
               if (response.status === 200) {
                 setIsliked(false);
@@ -76,10 +101,18 @@ export const ArticleActionBar = ({ id, date }) => {
   // Gestion de l'enregistrement d'un article dans le préférences du lecteur
   const handleBookmarkClick = () => {
     axios
-      .post('http://localhost:3000/saveArticle', {
-        email: user.profil.email,
-        articleId: id,
-      })
+      .post(
+        'http://localhost:3000/saveArticle',
+        {
+          email: user.profil.email,
+          articleId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      )
       .then((response) => {
         if (response.data === 'Article sauvegardé') {
           toast.success(response.data);

@@ -71,7 +71,12 @@ const ProfilePage = () => {
     try {
       const response = await axios.put(
         'http://localhost:3000/user/update',
-        request
+        request,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
       );
 
       const successMessage =
@@ -119,6 +124,9 @@ const ProfilePage = () => {
         const response = await axios.delete(
           'http://localhost:3000/user/delete',
           {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
             data: {
               email: modifiedUser.email,
               password: password,

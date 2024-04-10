@@ -16,7 +16,15 @@ const MySelectionPage = () => {
   useEffect(() => {
     dispatch(fetchArticles());
     axios
-      .post('http://localhost:3000/user/preferences', { email: userEmail })
+      .post(
+        'http://localhost:3000/user/preferences',
+        { email: userEmail },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           setUserPreferences(res.data.preferences);
@@ -25,7 +33,7 @@ const MySelectionPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [userEmail, dispatch]);
+  }, [userEmail]);
 
   // Utilisation de useEffect pour filtrer les articles chaque fois que articles ou userPreferences change
   useEffect(() => {

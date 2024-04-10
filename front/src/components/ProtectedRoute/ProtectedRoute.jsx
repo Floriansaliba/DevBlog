@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../../store/Selectors/userSelectors';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 // eslint-disable-next-line react/prop-types
 
@@ -26,15 +27,17 @@ const ProtectedRoute = ({ children }) => {
     const checkAuth = async () => {
       try {
         await axios
-          .post('http://localhost:3000/checkAuth', {
-            email: userEmail,
-            token: token,
+          .get('http://localhost:3000/adminAccess', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           })
           .then((res) => {
-            if (res.status === 200 && res.data === 'Token valide') {
+            if (res.status === 200) {
               setIsAuthorized(true);
             } else {
               localStorage.removeItem('token');
+              toast.error('Accès non authorisé');
               navigate('/');
             }
           });

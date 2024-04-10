@@ -47,7 +47,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path={'/nouvel-article'} element={<NewArticleForm />} />
+        <Route
+          path={'/nouvel-article'}
+          element={
+            <ProtectedRoute>
+              <NewArticleForm />
+            </ProtectedRoute>
+          }
+        />
         <Route path={'/selection'} element={<MySelectionPage />} />
         <Route path={'/*'} element={<Page404 />} />
       </Routes>

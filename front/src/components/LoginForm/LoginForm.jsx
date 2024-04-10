@@ -35,25 +35,27 @@ const LoginForm = () => {
           localStorage.setItem('token', token);
           // On déclenche l'action connectUser de Redux afin de connecter le user, de vérifier si il est admin ou non, et d'enregistrer ses informations
           dispatch(connectUser(res.data.user));
-          // On vérifie si le user est admin ou non afin de mettre à jour la variable isAdmin de Redux
-          // On enregistrer
+          // Un message de succès est affiché
           toast.success('Connexion réussie');
+          // On déclenche une navigation vers la page d'accueil
           navigate('/');
         }
       })
       .catch((error) => {
         if (
+          // On récupère le tableau des erreurs du back-end
           error.response &&
           error.response.data &&
           error.response.data.errors
         ) {
           error.response.data.errors.forEach((errorMessage) => {
+            // On affiche les erreurs dans le toast message
             toast.error(errorMessage);
           });
         } else {
+          // On affiche un message d'erreur par defaut
           toast.error('Une erreur est survenue lors de la connexion.');
         }
-        console.log(error);
       });
   };
   return (

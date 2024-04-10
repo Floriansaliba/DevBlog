@@ -107,7 +107,12 @@ const NewArticleForm = () => {
       try {
         const response = await axios.put(
           `http://localhost:3000/articles/${article._id}/modify`,
-          { article }
+          { article },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
         );
         if (response.status === 200) {
           toast.success('Modification enregistrée !');
@@ -153,7 +158,12 @@ const NewArticleForm = () => {
       // Envoi de la requête
       const response = await axios.post(
         'http://localhost:3000/new-article',
-        article
+        article,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
       );
       if (response.status === 400) {
         toast.error(response.data.message);

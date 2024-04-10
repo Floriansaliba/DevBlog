@@ -6,12 +6,10 @@ import { selectUser } from '../../store/Selectors/userSelectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { saveArticleToModify } from '../../store/slices/NewArticleSlice';
-import { useEffect } from 'react';
 
 // Gère l'affichage de la miniature d'un article
 const MiniatureArticle = ({
   article,
-  adminView = false,
   deleteFromPreferencesButton = false,
   articleKey,
 }) => {
@@ -20,11 +18,6 @@ const MiniatureArticle = ({
   const pathName = useLocation().pathname;
   const isAdmin = useSelector(selectUser).isAdmin;
   const userEmail = useSelector(selectUser)?.profil?.email;
-
-  // Si nous sommes sur la page Dashboard, le composant prendra la vue de l'admin
-  if (pathName === '/dashboard') {
-    adminView = true;
-  }
 
   // Si nous sommes sur la page Preferences, le boutton de suppression sera affiché
   // Il permettra de supprimer un article de ses préférences
@@ -41,8 +34,12 @@ const MiniatureArticle = ({
 
   const deleteArticleFromArticles = (e) => {
     e.stopPropagation();
+
+    const token = localStorage.getItem('token');
     axios
-      .delete(`http://localhost:3000/articles/${_id}/delete`)
+      .delete(`http://localhost:3000/articles/${_id}/delete`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((res) => {
         if (res.status === 200) {
           window.location.reload();
@@ -58,6 +55,9 @@ const MiniatureArticle = ({
     if (window.confirm('Validez-vous la suppression de cet article?')) {
       axios
         .delete('http://localhost:3000/user/preferences/deleteArticle', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
           data: {
             email: userEmail,
             articleId: _id,

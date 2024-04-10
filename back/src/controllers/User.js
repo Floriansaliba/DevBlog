@@ -137,23 +137,92 @@ class User {
     }
   };
 
-  checkAuth = async (req, res) => {
-    const { email, token } = req.body;
+  // Middleware permettant de vérifier si le user est bien admin
+
+  checkAdminAuth = async (req, res, next) => {
+    // Vérifier d'abord si l'en-tête Authorization existe et contenir 'Bearer '
+    if (
+      !req.headers.authorization ||
+      !req.headers.authorization.startsWith('Bearer ')
+    ) {
+      return res.status(401).send('Authentification requise');
+    }
+    // Récupérer le token
+    const token = req.headers.authorization.split(' ')[1];
+    console.log(token);
+    if (!token) {
+      return res.status(401).send('Authentification requise');
+    }
     try {
-      const user = await NewUser.findOne({ email: email });
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await NewUser.findOne({ email: decoded.email });
+      if (user && user.role.includes('admin')) {
+        next();
+      } else {
+        // Si aucun utilisateur n'est trouve ou que l'utilisateur n'est pas admin
+        return res.status(401).send('Token invalide');
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('Une erreur interne est survenue');
+    }
+  };
+
+  // Middleware permettant de vérifier si le user est bien connecté
+
+  checkAuth = async (req, res, next) => {
+    // Vérifier d'abord si l'en-tête Authorization existe et contenir 'Bearer '
+    if (
+      !req.headers.authorization ||
+      !req.headers.authorization.startsWith('Bearer ')
+    ) {
+      return res.status(401).send('Authentification requise');
+    }
+    // Récupérer le token
+    const token = req.headers.authorization.split(' ')[1];
+    if (!token) {
+      return res.status(401).send('Authentification requise');
+    }
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await NewUser.findOne({ email: decoded.email });
+      if (user) {
+        next();
+      } else {
+        // Si aucun utilisateur n'est trouvé
+        return res.status(401).send('Token invalide');
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('Une erreur interne est survenue');
+    }
+  };
+
+  // Vérifier si l'utilisateur est admin ou non
+
+  adminAccess = async (req, res) => {
+    try {
+      const headers = req.headers;
+      if (
+        !headers.authorization ||
+        !headers.authorization.startsWith('Bearer ')
+      ) {
+        return res.status(401).send('Authentification requise');
+      }
+      const token = req.headers.authorization.split(' ')[1];
+      if (!token) {
+        return res.status(401).send('Authentification requise');
+      }
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await NewUser.findOne({ email: decoded.email });
+
       if (!user) {
         return res.status(401).send('Utilisateur non reconnu');
       }
-
-      // Vérifier les informations du token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      if (!decoded || decoded.email !== user.email) {
-        return res.status(401).send('Token invalide');
-      } else if (!decoded.role.includes('admin')) {
-        return res.status(403).send(`Accès non authorisé`);
+      if (!user.role.includes('admin')) {
+        return res.status(401).send('Utilisateur non admin');
       }
-      res.status(200).send('Token valide');
+      return res.status(200).send('Accès autorisé');
     } catch (error) {
       console.error(error);
       res.status(500).send('Une erreur interne est survenue');

@@ -22,7 +22,7 @@ const ArticlesPage = () => {
   useEffect(() => {
     dispatch(fetchArticles());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, []);
 
   // Calcul des indices pour le slicing des articles
   const indexOfFirstArticle = (pageNumber - 1) * articlesPerPage;
