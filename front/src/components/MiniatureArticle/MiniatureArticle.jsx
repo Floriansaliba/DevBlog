@@ -34,20 +34,21 @@ const MiniatureArticle = ({
 
   const deleteArticleFromArticles = (e) => {
     e.stopPropagation();
-
-    const token = localStorage.getItem('token');
-    axios
-      .delete(`http://localhost:3000/articles/${_id}/delete`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          window.location.reload();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (window.confirm('Validez-vous la suppression de cet article?')) {
+      const token = localStorage.getItem('token');
+      axios
+        .delete(`http://localhost:3000/articles/${_id}/delete`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            window.location.reload();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const deleteArticleFromUserPreferences = (e) => {
