@@ -173,6 +173,7 @@ const ProfilePage = () => {
             name='lastName'
             placeholder={user.lastName}
             onChange={handleChange}
+            value={modifiedUser.lastName}
           />
         </label>
         <label>
@@ -182,6 +183,7 @@ const ProfilePage = () => {
             name='email'
             placeholder={user.email}
             onChange={handleChange}
+            value={modifiedUser.email}
           />
         </label>
         <label>
