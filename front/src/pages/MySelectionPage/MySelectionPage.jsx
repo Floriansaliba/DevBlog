@@ -47,21 +47,23 @@ const MySelectionPage = () => {
   return (
     <>
       <section id='articles'>
-        {filteredArticles.length > 0 ? (
-          filteredArticles.map((article) => {
-            return (
-              <MiniatureArticle
-                key={article._id}
-                article={article}
-                deleteOption={true}
-              />
-            );
-          })
-        ) : (
-          <p className='no-data'>
-            Aucun article dans votre sélection actuellement
-          </p>
-        )}
+        <div className='display-frame'>
+          {filteredArticles.length > 0 ? (
+            filteredArticles.map((article) => {
+              return (
+                <MiniatureArticle
+                  key={article._id}
+                  article={article}
+                  deleteOption={true}
+                />
+              );
+            })
+          ) : (
+            <p className='no-data'>
+              Aucun article dans votre sélection actuellement
+            </p>
+          )}
+        </div>
       </section>
     </>
   );
