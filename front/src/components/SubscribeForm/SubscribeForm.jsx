@@ -3,6 +3,7 @@ import './SubscribeForm.scss';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../utils/constantes';
 
 /*
 Formulaire d'inscription d'un lecteur (via son email, son nom et son mot de passe)
@@ -27,10 +28,7 @@ const SubscribeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        'http://localhost:3000/subscribe',
-        formData
-      );
+      const response = await axios.post(`${BASE_URL}/subscribe`, formData);
       toast.success('Vous êtes inscrit :)');
       navigate('/connexion');
     } catch (error) {

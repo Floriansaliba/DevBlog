@@ -4,6 +4,7 @@ import { selectUser } from '../../store/Selectors/userSelectors';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { BASE_URL } from '../../utils/constantes';
 
 // eslint-disable-next-line react/prop-types
 
@@ -27,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
     const checkAuth = async () => {
       try {
         await axios
-          .get('http://localhost:3000/adminAccess', {
+          .get(`${BASE_URL}/adminAccess`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

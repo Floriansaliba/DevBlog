@@ -14,6 +14,7 @@ import ParagraphCreator from '../ParagraphCreator/ParagraphCreator';
 import CodeCreator from '../CodeCreator/CodeCreator';
 import SubtitleCreator from '../SubtitleCreator/SubtitleCreator';
 import { useLocation } from 'react-router-dom';
+import { BASE_URL } from '../../utils/constantes';
 
 // eslint-disable-next-line react/prop-types
 
@@ -35,9 +36,7 @@ const ArticleView = ({ id }) => {
   const fetchArticle = async () => {
     if (id) {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/articles/${id}`
-        );
+        const response = await axios.get(`${BASE_URL}/articles/${id}`);
         if (response.status === 200) {
           setSelectedArticle(response.data.article);
           setLoading(false);
@@ -200,9 +199,9 @@ const ArticleView = ({ id }) => {
               className='article__image'
               src={
                 id
-                  ? `http://localhost:3000/images/${selectedArticle.imageName}`
+                  ? `${BASE_URL}/images/${selectedArticle.imageName}`
                   : articleToModify
-                  ? `http://localhost:3000/images/${articleToModify.imageName}`
+                  ? `${BASE_URL}/images/${articleToModify.imageName}`
                   : newArticle.imageName
               }
               alt={id ? selectedArticle.title : newArticle.title}

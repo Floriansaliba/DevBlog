@@ -6,6 +6,7 @@ import { selectUser } from '../../store/Selectors/userSelectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { saveArticleToModify } from '../../store/slices/NewArticleSlice';
+import { BASE_URL } from '../../utils/constantes';
 
 // Gère l'affichage de la miniature d'un article
 const MiniatureArticle = ({
@@ -37,7 +38,7 @@ const MiniatureArticle = ({
     if (window.confirm('Validez-vous la suppression de cet article?')) {
       const token = localStorage.getItem('token');
       axios
-        .delete(`http://localhost:3000/articles/${_id}/delete`, {
+        .delete(`${BASE_URL}/articles/${_id}/delete`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -55,7 +56,7 @@ const MiniatureArticle = ({
     e.stopPropagation();
     if (window.confirm('Validez-vous la suppression de cet article?')) {
       axios
-        .delete('http://localhost:3000/user/preferences/deleteArticle', {
+        .delete(`${BASE_URL}/user/preferences/deleteArticle`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -101,11 +102,7 @@ const MiniatureArticle = ({
         <div className='miniature-article__image-frame'>
           <img
             className='miniature-article__image-frame__img'
-            src={
-              imageName
-                ? `http://localhost:3000/images/${imageName}`
-                : defaultImage
-            }
+            src={imageName ? `${BASE_URL}/images/${imageName}` : defaultImage}
             alt={title}
           />
         </div>

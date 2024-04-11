@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { BASE_URL } from '../../utils/constantes';
 
 /*
 Le slice de Redux permettant de gérer le state des articles 
@@ -19,7 +20,7 @@ export const fetchArticles = createAsyncThunk(
   'articles/fetchArticles',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('http://localhost:3000/articles');
+      const response = await axios.get(`${BASE_URL}/articles`);
       return response.data.articles;
     } catch (error) {
       return rejectWithValue(error.response.data);

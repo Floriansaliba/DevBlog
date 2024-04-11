@@ -7,6 +7,7 @@ import { selectUser } from '../../store/Selectors/userSelectors';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { disconnectUser } from '../../store/slices/UserSlice';
+import { BASE_URL } from '../../utils/constantes';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -69,15 +70,11 @@ const ProfilePage = () => {
       password: password,
     };
     try {
-      const response = await axios.put(
-        'http://localhost:3000/user/update',
-        request,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
+      const response = await axios.put(`${BASE_URL}/user/update`, request, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
 
       const successMessage =
         response.data.message || 'Profil mis à jour avec succès';
@@ -121,18 +118,15 @@ const ProfilePage = () => {
       )
     ) {
       try {
-        const response = await axios.delete(
-          'http://localhost:3000/user/delete',
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-            data: {
-              email: modifiedUser.email,
-              password: password,
-            },
-          }
-        );
+        const response = await axios.delete(`${BASE_URL}/user/delete`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          data: {
+            email: modifiedUser.email,
+            password: password,
+          },
+        });
 
         // La requête a réussi
         toast.success('Profil supprimé avec succès');

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { connectUser } from '../../store/slices/UserSlice';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../utils/constantes';
 
 /*
  * Formulaire permettant la connexion d'un lecteur (ou administrateur) ayant déjà créé son compte
@@ -11,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -27,7 +29,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:3000/login', formData)
+      .post(`${BASE_URL}/login`, formData)
       .then((res) => {
         if (res.status === 200) {
           // On enregistre le jwt token dans le localStorage
@@ -58,6 +60,7 @@ const LoginForm = () => {
         }
       });
   };
+
   return (
     <>
       <h1 className='title'>Connectez-vous</h1>

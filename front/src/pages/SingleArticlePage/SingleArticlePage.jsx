@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { selectUser } from '../../store/Selectors/userSelectors';
 import { useSelector } from 'react-redux';
+import { BASE_URL } from '../../utils/constantes';
 
 const SingleArticlePage = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ const SingleArticlePage = () => {
   useEffect(() => {
     if (!isAdmin) {
       axios
-        .get(`http://localhost:3000/articles/${id}/addView`)
+        .get(`${BASE_URL}/articles/${id}/addView`)
         .then((response) => {
           if (response.status === 200) {
             console.log('Une vue a été ajoutée');

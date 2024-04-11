@@ -5,6 +5,7 @@ import { selectUser } from '../../store/Selectors/userSelectors';
 import { fetchArticles } from '../../store/slices/ArticlesSlice';
 import { selectArticles } from '../../store/Selectors/articlesSelector';
 import MiniatureArticle from '../../components/MiniatureArticle/MiniatureArticle';
+import { BASE_URL } from '../../utils/constantes';
 
 const MySelectionPage = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const MySelectionPage = () => {
     dispatch(fetchArticles());
     axios
       .post(
-        'http://localhost:3000/user/preferences',
+        `${BASE_URL}/user/preferences`,
         { email: userEmail },
         {
           headers: {

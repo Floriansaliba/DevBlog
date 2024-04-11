@@ -20,6 +20,7 @@ import SubtitleCreator from '../SubtitleCreator/SubtitleCreator';
 import CodeCreator from '../CodeCreator/CodeCreator';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../utils/constantes';
 
 // Composant permettant de créer un nouvel article, ou de modifier un article existant ainsi que de prévisualiser ce dernier.
 // Déclenche des 'toast messages' afin de notifier l'administrateur en cas d'erreur ou de succès lors de l'envoi du formulaire
@@ -106,7 +107,7 @@ const NewArticleForm = () => {
       // Envoi de la requête
       try {
         const response = await axios.put(
-          `http://localhost:3000/articles/${article._id}/modify`,
+          `${BASE_URL}/articles/${article._id}/modify`,
           { article },
           {
             headers: {
@@ -156,15 +157,11 @@ const NewArticleForm = () => {
       }
 
       // Envoi de la requête
-      const response = await axios.post(
-        'http://localhost:3000/new-article',
-        article,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/new-article`, article, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       if (response.status === 400) {
         toast.error(response.data.message);
         return;

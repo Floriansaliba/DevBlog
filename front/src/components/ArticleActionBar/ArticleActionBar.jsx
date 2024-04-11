@@ -5,6 +5,7 @@ import { selectUser } from '../../store/Selectors/userSelectors';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import { BASE_URL } from '../../utils/constantes';
 
 // eslint-disable-next-line react/prop-types
 
@@ -27,7 +28,7 @@ export const ArticleActionBar = ({ id, date }) => {
     // Ajout de l'article en préférences de l'utilisateur
     axios
       .put(
-        'http://localhost:3000/user/addLike',
+        `${BASE_URL}/user/addLike`,
         {
           articleId: id,
           userEmail: user.profil.email,
@@ -42,7 +43,7 @@ export const ArticleActionBar = ({ id, date }) => {
         if (response.data === 'Un like ajouté') {
           // Ajout d'un like dans l'article en base de données
           axios
-            .get(`http://localhost:3000/articles/${id}/addLike`, {
+            .get(`${BASE_URL}/articles/${id}/addLike`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
               },
@@ -67,7 +68,7 @@ export const ArticleActionBar = ({ id, date }) => {
   const handleDislikeClick = () => {
     axios
       .put(
-        'http://localhost:3000/user/dislike',
+        `${BASE_URL}/user/dislike`,
         {
           articleId: id,
           userEmail: user.profil.email,
@@ -81,7 +82,7 @@ export const ArticleActionBar = ({ id, date }) => {
       .then((response) => {
         if (response.status === 200) {
           axios
-            .get(`http://localhost:3000/articles/${id}/addDislike`, {
+            .get(`${BASE_URL}/articles/${id}/addDislike`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
               },
@@ -102,7 +103,7 @@ export const ArticleActionBar = ({ id, date }) => {
   const handleBookmarkClick = () => {
     axios
       .post(
-        'http://localhost:3000/saveArticle',
+        `${BASE_URL}/saveArticle`,
         {
           email: user.profil.email,
           articleId: id,
