@@ -81,7 +81,7 @@ const LoginForm = () => {
           value={formData.password}
           onChange={handleChange}
         />
-        <button className='btn' type='submit' onClick={handleSubmit}>
+        <button className='btn' type='submit'>
           SE CONNECTER
         </button>
       </form>
